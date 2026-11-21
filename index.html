@@ -115,4 +115,129 @@
                 </div>
             </div>
         </a>
+        <div class="accessibility-float" title="Acessibilidade em Libras">🤟</div>
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-top">
+            <div class="sc-logo-top"><span class="red">sc.</span><span class="green">gov.br</span></div>
+            <div class="social-icons">
+                <a href="#" class="social-link" title="Instagram">IG</a>
+                <a href="#" class="social-link" title="Facebook">f</a>
+                <a href="#" class="social-link" title="Twitter">𝕏</a>
+                <a href="#" class="social-link" title="YouTube">▶</a>
+            </div>
+        </div>
+
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="detran-brand">
+                    <span style="color:#c81010;">▶</span><span style="color:#265c29; margin-left:-4px;">▶</span>
+                    <span>DETRANSC</span>
+                </div>
+                <div class="store-buttons">
+                    <a href="#" class="store-btn">▶ Play Store</a>
+                    <a href="#" class="store-btn"> App Store</a>
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h3>LINKS EXTERNOS</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Agência de Notícias</a></li>
+                    <li><a href="#">Portal de Serviços</a></li>
+                    <li><a href="#">Diário Oficial</a></li>
+                    <li><a href="#">Acesso à Informação</a></li>
+                    <li><a href="#">Órgãos do Governo</a></li>
+                    <li><a href="#">Conheça SC</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h3>FALE CONOSCO</h3>
+                <div class="info-block">WhatsApp:<strong>(48) 3664-1800</strong></div>
+                <div class="info-block">E-mail:<strong>centraldeinformacoes@detran.sc.gov.br</strong></div>
+            </div>
+
+            <div class="footer-col">
+                <h3>ENDEREÇO</h3>
+                <div class="info-block">Endereço:<strong>Av. Almirante Tamandaré - 480</strong></div>
+                <div class="info-block">Bairro:<strong>Coqueiros, Florianópolis SC</strong></div>
+                <div class="address-bottom-row">
+                    <div class="info-block" style="margin-bottom:0;">CEP:<strong>88.080-160</strong></div>
+                    <div class="padrao-logo">
+                        <small>PADRÃO</small>
+                        <div class="logo-txt"><span class="red">sc.</span><span class="green">gov.br</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-col" style="text-align:center;">
+                <h3>LOCALIZAÇÃO</h3>
+                <svg width="215" height="125" viewBox="0 0 230 135">
+                    <path d="M12,34 L45,27 L68,20 L95,24 L115,17 L142,18 L168,16 L185,24 L188,45 L178,68 L170,88 L156,112 L138,122 L126,115 L133,94 L120,80 L100,74 L76,68 L50,60 L26,54 L8,46 Z" fill="#6e6e6e"/>
+                    <path d="M10,27 L43,20 L66,13 L93,17 L113,10 L140,11 L166,9 L183,17 L186,38 L176,61 L168,81 L154,105 L136,115 L124,108 L131,87 L118,73 L98,67 L74,61 L48,53 L24,47 L6,39 Z" fill="#f7f7f7" stroke="#cccccc" stroke-width="1"/>
+                    <text x="122" y="65" font-size="8.5" font-weight="800" fill="#1a5fb4" transform="rotate(-12 122,65)">DETRAN/SC</text>
+                    <g transform="translate(175, 48)">
+                        <path d="M8,0 C3.6,0 0,3.6 0,8 C0,14.5 8,23 8,23 C8,23 16,14.5 16,8 C16,3.6 12.4,0 8,0 Z" fill="#c81010"/>
+                        <circle cx="8" cy="8" r="3.2" fill="#ffffff"/>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <a href="#" class="privacy-link">🔒 Política de privacidade</a>
+            <div>Copyright © 2025 Todos os Direitos Reservados SC - Governo de Santa Catarina | <strong>Desenvolvimento - DITI/DETRAN</strong></div>
+        </div>
+    </div>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const URL_PLANILHA = "https://script.google.com/macros/s/AKfycby5pn56DTlCj_XZsMXX_RePtN0AArzUn3bCJZbwWfFFHNQe6G77Gr85h47aWJG9xlBisg/exec";
+    const DESTINO = "https://www.detran.sc.gov.br/";
+
+    function registrarCliqueERedirecionar(nomeItem) {
+        const urlEnvio = `${URL_PLANILHA}?botao=${encodeURIComponent(nomeItem)}`;
+        fetch(urlEnvio, { mode: "no-cors", keepalive: true }).catch(function(){});
+        setTimeout(function() { window.location.href = DESTINO; }, 500);
+    }
+
+    document.querySelectorAll(".card").forEach(function(botao) {
+        botao.addEventListener("click", function(e) {
+            e.preventDefault();
+            const nomeBotao = this.querySelector(".card-label").innerText.replace(/\n/g, " ").trim();
+            registrarCliqueERedirecionar(nomeBotao);
+        });
+    });
+
+    document.querySelectorAll(".carousel-slide").forEach(function(slide) {
+        slide.addEventListener("click", function(e) {
+            e.preventDefault();
+            const nomeSlide = this.getAttribute("data-nome") || "Banner Carrossel";
+            registrarCliqueERedirecionar(nomeSlide);
+        });
+    });
+
+    const slidesContainer = document.getElementById("carouselSlides");
+    const dots = document.querySelectorAll(".carousel-dot");
+    const totalSlides = dots.length;
+    let indiceAtual = 0;
+
+    function irParaSlide(indice) {
+        indiceAtual = (indice + totalSlides) % totalSlides;
+        slidesContainer.style.transform = `translateX(-${indiceAtual * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle("active", i === indiceAtual));
+    }
+
+    document.getElementById("nextSlide").addEventListener("click", () => irParaSlide(indiceAtual + 1));
+    document.getElementById("prevSlide").addEventListener("click", () => irParaSlide(indiceAtual - 1));
+    dots.forEach(dot => dot.addEventListener("click", () => irParaSlide(parseInt(dot.getAttribute("data-index")))));
+    setInterval(() => irParaSlide(indiceAtual + 1), 5000);
+});
+</script>
+
+</body>
+</html>
 
