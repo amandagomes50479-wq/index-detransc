@@ -59,7 +59,7 @@
         @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .social-icons { margin-right: 0; } }
         @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } .card { width: 46%; } }
  
-/* ================= CARROSSEL DE BANNERS TOPO ================= */
+/* ================= CARROSSEL COM FUNDOS ORIGINAIS E TEXTOS PADRONIZADOS ================= */
 .hero-carousel {
     position: relative;
     width: 100%;
@@ -79,6 +79,9 @@
 .carousel-slide {
     min-width: 100%;
     height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -88,21 +91,13 @@
     position: relative;
 }
 
-/* Fundos estilizados no padrão oficial SC */
-.slide-desconto {
-    background: linear-gradient(110deg, #1b431d 0%, #2b542c 55%, #3d723e 100%);
-}
-
-.slide-ipva {
-    background: linear-gradient(110deg, #1f3a52 0%, #2b547e 55%, #1d4e3e 100%);
-}
-
-.slide-golpes {
-    background: linear-gradient(110deg, #7a1212 0%, #a81818 55%, #2b542c 100%);
-}
-
-.slide-transporte {
-    background: linear-gradient(110deg, #244725 0%, #376838 55%, #8ea93b 100%);
+/* Camada escura leve para garantir leitura nítida da fonte sobre as imagens */
+.carousel-slide::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.65) 100%);
+    z-index: 1;
 }
 
 .slide-content {
@@ -110,17 +105,19 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 30px;
+    justify-content: flex-end;
+    position: relative;
+    z-index: 2;
 }
 
 .slide-text {
-    max-width: 620px;
+    max-width: 580px;
+    text-align: left;
 }
 
 .slide-tag {
     display: inline-block;
-    background-color: rgba(255, 255, 255, 0.18);
+    background-color: rgba(255, 255, 255, 0.22);
     padding: 4px 12px;
     border-radius: 3px;
     font-size: 11px;
@@ -144,7 +141,7 @@
 .slide-text p {
     font-size: 15px;
     font-weight: 400;
-    opacity: 0.92;
+    opacity: 0.95;
     margin-bottom: 18px;
     line-height: 1.4;
 }
@@ -157,12 +154,7 @@
     font-weight: 700;
     padding: 9px 20px;
     border-radius: 3px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-
-.slide-art {
-    flex-shrink: 0;
-    opacity: 0.9;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
 }
 
 /* Setas Laterais */
@@ -207,7 +199,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.5);
     border: none;
     cursor: pointer;
 }
@@ -219,10 +211,9 @@
 
 @media (max-width: 768px) {
     .hero-carousel { height: 270px; }
+    .slide-content { justify-content: center; }
     .slide-text h2 { font-size: 21px; }
-    .slide-art { display: none; }
 }
-
 
 
     </style>
@@ -236,6 +227,68 @@
 <section class="hero-carousel" id="heroCarousel">
     <button class="carousel-arrow carousel-prev" id="prevSlide" aria-label="Anterior">&#10094;</button>
     <button class="carousel-arrow carousel-next" id="nextSlide" aria-label="Próximo">&#10095;</button>
+
+    <div class="carousel-slides" id="carouselSlides">
+        <!-- Slide 1: Aviso de 20% de Desconto sobre o fundo do IPVA 2026 -->
+        <a href="https://detran.sc.gov.br" class="carousel-slide" data-nome="Banner Carrossel 20% Desconto"
+           style="background-image: url('https://detran.sc.gov.brwp-content/uploads/2026/01/Banner-IPVA-2026.png');">
+            <div class="slide-content">
+                <div class="slide-text">
+                    <span class="slide-tag">Programa de Regularização</span>
+                    <h2>O governo do estado liberou <span class="destaque-amarelo">20% de desconto</span> para pagamento de seus débitos veiculares.</h2>
+                    <p>Consulte a situação do seu veículo e emita sua guia com desconto agora mesmo.</p>
+                    <span class="slide-btn">Clique aqui</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Slide 2: IPVA 2026 -->
+        <a href="https://detran.sc.gov.br" class="carousel-slide" data-nome="Banner Carrossel IPVA 2026"
+           style="background-image: url('https://detran.sc.gov.brwp-content/uploads/2026/01/Banner-IPVA-2026.png');">
+            <div class="slide-content">
+                <div class="slide-text">
+                    <span class="slide-tag">IPVA 2026</span>
+                    <h2>Calendário do IPVA 2026.</h2>
+                    <p>Confira os prazos de vencimento de acordo com o final da placa do seu veículo.</p>
+                    <span class="slide-btn">Clique aqui</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Slide 3: Não caia em golpes! -->
+        <a href="https://detran.sc.gov.br" class="carousel-slide" data-nome="Banner Carrossel Golpes"
+           style="background-image: url('https://detran.sc.gov.brwp-content/uploads/2025/02/2-1-1-Compress.png');">
+            <div class="slide-content">
+                <div class="slide-text">
+                    <span class="slide-tag">Alerta de Segurança</span>
+                    <h2>Não caia em golpes!</h2>
+                    <p>Saiba como se proteger dos golpes virtuais envolvendo o Detran/SC.</p>
+                    <span class="slide-btn">Clique aqui</span>
+                </div>
+            </div>
+        </a>
+
+        <!-- Slide 4: Transporte Escolar -->
+        <a href="https://detran.sc.gov.br" class="carousel-slide" data-nome="Banner Carrossel Transporte Escolar"
+           style="background-image: url('https://detran.sc.gov.brwp-content/uploads/2024/02/transporte-escolar.png');">
+            <div class="slide-content">
+                <div class="slide-text">
+                    <span class="slide-tag">Fiscalização e Segurança</span>
+                    <h2>Transporte Escolar</h2>
+                    <p>Veja aqui se o Transporte escolar do seu filho está regular.</p>
+                    <span class="slide-btn">Clique aqui</span>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="carousel-dots" id="carouselDots">
+        <button class="carousel-dot active" data-index="0"></button>
+        <button class="carousel-dot" data-index="1"></button>
+        <button class="carousel-dot" data-index="2"></button>
+        <button class="carousel-dot" data-index="3"></button>
+    </div>
+</section>
 
     <div class="carousel-slides" id="carouselSlides">
         <!-- Slide 1: Seu Aviso de 20% de Desconto -->
