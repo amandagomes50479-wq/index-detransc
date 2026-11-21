@@ -24,7 +24,7 @@
             flex-direction: column;
         }
 
-        /* Cabeçalho */
+        /* ================= CABEÇALHO ================= */
         header {
             width: 100%;
             height: 60px;
@@ -60,7 +60,6 @@
             letter-spacing: -0.3px;
         }
 
-        /* Faixa decorativa abaixo do header */
         .banner-strip {
             width: 100%;
             height: 24px;
@@ -69,7 +68,7 @@
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
         }
 
-        /* Conteúdo Principal */
+        /* ================= SEÇÃO PRINCIPAL (8 CARDS) ================= */
         main {
             max-width: 1120px;
             width: 100%;
@@ -99,7 +98,13 @@
             line-height: 1.1;
         }
 
-        /* Grade dos 5 Cards */
+        .cards-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
         .cards-row {
             display: flex;
             justify-content: center;
@@ -150,7 +155,7 @@
             line-height: 1.3;
         }
 
-        /* ================= RODAPÉ EXATO DA IMAGEM ================= */
+        /* ================= RODAPÉ INSTITUCIONAL ================= */
         footer {
             width: 100%;
             background-color: #e6e6e6;
@@ -164,7 +169,6 @@
             margin: 0 auto;
         }
 
-        /* Linha superior do rodapé: sc.gov.br à esquerda e ícones verdes à direita */
         .footer-top {
             display: flex;
             justify-content: space-between;
@@ -215,7 +219,6 @@
             fill: #ffffff;
         }
 
-        /* Grade das 5 Colunas do Rodapé */
         .footer-grid {
             display: grid;
             grid-template-columns: 1.05fr 1.15fr 1.85fr 1.65fr 1.55fr;
@@ -232,7 +235,6 @@
             letter-spacing: 0.2px;
         }
 
-        /* Coluna 1: DETRANSC + Botões das lojas */
         .detran-brand {
             display: flex;
             align-items: center;
@@ -278,7 +280,6 @@
             fill: #ffffff;
         }
 
-        /* Coluna 2: Links Externos */
         .footer-links {
             list-style: none;
         }
@@ -298,7 +299,6 @@
             text-decoration: underline;
         }
 
-        /* Coluna 3 e 4: Fale Conosco e Endereço */
         .info-block {
             margin-bottom: 14px;
             font-size: 12px;
@@ -323,7 +323,6 @@
             display: flex;
             flex-direction: column;
             line-height: 1;
-            position: relative;
         }
 
         .padrao-logo small {
@@ -349,7 +348,6 @@
             margin-left: 2px;
         }
 
-        /* Coluna 5: Localização e Mapa */
         .location-col {
             text-align: center;
         }
@@ -360,7 +358,6 @@
             justify-content: center;
         }
 
-        /* Parte inferior: Política de Privacidade e Copyright */
         .footer-bottom {
             margin-top: 20px;
             font-size: 11.5px;
@@ -390,7 +387,6 @@
             font-weight: 700;
         }
 
-        /* Botão Azul de Acessibilidade à direita */
         .accessibility-float {
             position: fixed;
             right: 8px;
@@ -400,3 +396,16 @@
             background-color: #2a7de1;
             border-radius: 6px;
             display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+            cursor: pointer;
+            z-index: 999;
+        }
+
+        .accessibility-float svg {
+            width: 22px;
+            height: 22px;
+            fill: #ffffff;
+        }
+
