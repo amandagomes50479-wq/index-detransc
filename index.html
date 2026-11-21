@@ -59,68 +59,63 @@
         @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .social-icons { margin-right: 0; } }
         @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } .card { width: 46%; } }
  
-
-
-.popup-box:hover {
-    transform: scale(1.01);
-}
-
-/* Botão X para fechar sem clicar no aviso */
-.popup-fechar {
-    position: absolute;
-    top: 10px;
-    right: 14px;
-    background: none;
-    border: none;
-    font-size: 22px;
-    font-weight: bold;
-    color: #888888;
+/* Faixa de Comunicado Oficial - Estilo Portal SC */
+.banner-comunicado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background-color: #f4f9f4;
+    border: 1px solid #d2e6d2;
+    border-left: 4px solid #2b542c;
+    border-radius: 2px;
+    padding: 12px 18px;
+    margin-bottom: 28px;
+    text-decoration: none;
+    color: #2b2b2b;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
     cursor: pointer;
-    line-height: 1;
 }
 
-.popup-fechar:hover {
-    color: #c81010;
+.banner-comunicado:hover {
+    background-color: #ebf5eb;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.09);
 }
 
-.popup-badge {
-    display: inline-block;
-    background-color: #e9f7ea;
-    color: #2b542c;
-    font-size: 12px;
-    font-weight: 800;
-    padding: 5px 12px;
-    border-radius: 20px;
-    margin-bottom: 14px;
-    text-transform: uppercase;
-}
-
-.popup-texto {
-    font-size: 17px;
-    color: #222222;
-    line-height: 1.45;
-    margin-bottom: 20px;
+.banner-comunicado-texto {
+    font-size: 13.5px;
     font-weight: 500;
+    line-height: 1.4;
+    color: #2b2b2b;
 }
 
-.destaque-desconto {
+.banner-comunicado-texto strong.destaque-20 {
     color: #c81010;
-    font-weight: 900;
-    font-size: 20px;
-    background-color: #fff0f0;
-    padding: 1px 6px;
-    border-radius: 4px;
+    font-weight: 800;
 }
 
-.popup-cta {
-    display: inline-block;
-    background-color: #2b542c;
-    color: #ffffff;
-    font-size: 14px;
+.banner-comunicado-acao {
+    font-size: 12px;
     font-weight: 700;
-    padding: 11px 24px;
-    border-radius: 4px;
+    color: #2b542c;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
 }
+
+.banner-comunicado:hover .banner-comunicado-acao {
+    text-decoration: underline;
+}
+
+@media (max-width: 650px) {
+    .banner-comunicado {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+}
+
 
 
     </style>
@@ -134,12 +129,13 @@
 <div class="banner-strip"></div>
 
 <main>
-    <div class="aviso-desconto">
-    <svg viewBox="0 0 24 24">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-    </svg>
-    <span>O governo do estado liberou 20% de desconto para pagamento de seus débitos veiculares.</span>
-</div>
+   <a href="https://detran.sc.gov.br" class="banner-comunicado" id="bannerDesconto">
+    <span class="banner-comunicado-texto">
+        O governo do estado liberou <strong class="destaque-20">20% de desconto</strong> para pagamento de seus débitos veiculares.
+    </span>
+    <span class="banner-comunicado-acao">Consultar agora &rsaquo;</span>
+</a>
+
 
     <div class="section-title">
         <span class="sub">Serviços mais</span>
@@ -277,7 +273,6 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // MANTENHA AQUI A SUA URL DO GOOGLE APPS SCRIPT
     const URL_PLANILHA = "https://script.google.com/macros/s/AKfycbwOzB4G7WVqxJs_Ea1XOCBG7rwYEbrXUe1GCXWZPXh9qqa5vrRoh61Pedb6UEF2zuwQaw/exec";
     const DESTINO = "https://detran.sc.gov.br";
 
@@ -301,22 +296,19 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // 2. Contagem e redirecionamento ao clicar no Pop-up
-    const popupOverlay = document.getElementById("popupAviso");
-    const boxAviso = document.getElementById("boxAvisoClicavel");
-    const btnFechar = document.getElementById("btnFecharPopup");
-
-    btnFechar.addEventListener("click", function(e) {
-        e.stopPropagation(); // Fecha apenas o pop-up sem redirecionar
-        popupOverlay.style.display = "none";
-    });
-
-    boxAviso.addEventListener("click", function() {
-        registrarCliqueERedirecionar("Pop-up 20% Desconto");
-    });
+    // 2. Contagem na faixa de aviso do desconto
+    const bannerDesconto = document.getElementById("bannerDesconto");
+    if (bannerDesconto) {
+        bannerDesconto.addEventListener("click", function(e) {
+            e.preventDefault();
+            registrarCliqueERedirecionar("Banner 20% Desconto");
+        });
+    }
 });
 </script>
 
+
+    
 
     
 
