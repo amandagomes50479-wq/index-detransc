@@ -8,8 +8,6 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
         body { background-color: #ffffff; color: #333333; min-height: 100vh; display: flex; flex-direction: column; }
-
-        /* 1. Barra Superior sc.gov.br */
         .top-gov-bar { width: 100%; background: #ffffff; border-bottom: 1px solid #ececec; padding: 8px 11%; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
         .top-gov-left { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
         .gov-logo-sm { font-size: 26px; font-weight: 900; letter-spacing: -1.4px; text-decoration: none; line-height: 1; }
@@ -17,136 +15,36 @@
         .green { color: #265c29; }
         .top-gov-links { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
         .top-gov-links a { text-decoration: none; color: #333333; font-size: 11.5px; font-weight: 500; }
-        .top-gov-links a:hover { text-decoration: underline; }
         .top-gov-socials { display: flex; align-items: center; gap: 10px; }
         .top-gov-socials a { color: #222222; text-decoration: none; font-size: 12px; font-weight: 800; }
-
-        /* 2. Cabeçalho Institucional */
         header { width: 100%; height: 56px; background: #ffffff; display: flex; align-items: center; padding: 0 11%; border-bottom: 1px solid #e0e0e0; }
         .menu-icon { display: flex; flex-direction: column; justify-content: space-between; width: 20px; height: 14px; margin-right: 18px; cursor: pointer; }
         .menu-icon span { display: block; height: 3px; width: 100%; background-color: #2b542c; border-radius: 1px; }
         .header-title { font-size: 20px; font-weight: 500; color: #2b542c; letter-spacing: -0.3px; }
-
-        /* 3. Faixa de Busca "O QUE VOCÊ PROCURA ?" + Logo DETRANSC */
-        .search-hero-bar {
-            width: 100%;
-            min-height: 155px;
-            background-color: #dfdfdf;
-            background-image:
-                linear-gradient(rgba(255,255,255,0.45) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.45) 1px, transparent 1px);
-            background-size: 180px 75px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px 11%;
-            border-bottom: 1px solid #d2d2d2;
-        }
+        .search-hero-bar { width: 100%; min-height: 155px; background-color: #dfdfdf; background-image: linear-gradient(rgba(255,255,255,0.45) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.45) 1px, transparent 1px); background-size: 180px 75px; display: flex; align-items: center; justify-content: center; padding: 24px 11%; border-bottom: 1px solid #d2d2d2; }
         .search-hero-inner { max-width: 1120px; width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 30px; flex-wrap: wrap; }
         .search-box-area { flex: 1; min-width: 280px; max-width: 540px; text-align: center; }
-        .search-box-area h2 { font-size: 28px; font-weight: 500; color: #2b2b2b; margin-bottom: 12px; letter-spacing: -0.3px; }
-        .search-input-wrap { display: flex; width: 100%; height: 36px; background: #c9c9c9; border-radius: 2px; overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.12); }
+        .search-box-area h2 { font-size: 28px; font-weight: 500; color: #2b2b2b; margin-bottom: 12px; }
+        .search-input-wrap { display: flex; width: 100%; height: 36px; background: #c9c9c9; border-radius: 2px; overflow: hidden; }
         .search-input-wrap input { flex: 1; border: none; background: transparent; padding: 0 14px; font-size: 13px; color: #333333; outline: none; }
         .search-input-wrap input::placeholder { color: #eeeeee; }
-        .search-input-wrap button { width: 38px; border: none; background: #b5b5b5; color: #ffffff; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .search-input-wrap button { width: 38px; border: none; background: #b5b5b5; color: #ffffff; cursor: pointer; }
         .detran-hero-logo { display: flex; align-items: center; gap: 12px; }
         .detran-hero-logo span { font-size: 38px; font-weight: 900; letter-spacing: -1px; color: #111111; }
-
-        /* 4. Banner Azul IPVA 2026 + Mensagem 20% Desconto */
-        .banner-ipva-azul {
-            width: 100%;
-            min-height: 235px;
-            background: radial-gradient(circle at 30% 50%, #0b2d8f 0%, #061b5c 60%, #041240 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 28px 11%;
-            text-decoration: none;
-            color: #ffffff;
-            position: relative;
-            overflow: hidden;
-        }
+        .banner-ipva-azul { width: 100%; min-height: 235px; background: radial-gradient(circle at 30% 50%, #0b2d8f 0%, #061b5c 60%, #041240 100%); display: flex; align-items: center; justify-content: center; padding: 28px 11%; text-decoration: none; color: #ffffff; }
         .banner-ipva-inner { max-width: 1120px; width: 100%; display: flex; align-items: center; justify-content: space-around; gap: 36px; flex-wrap: wrap; }
-
-        /* Placa Mercosul IPVA 2026 */
-        .placa-mercosul {
-            width: 340px;
-            background: #f4f4f4;
-            border: 3px solid #111111;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.45);
-            flex-shrink: 0;
-        }
-        .placa-topo {
-            background: #003399;
-            color: #ffffff;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 12px;
-            font-size: 13px;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-        .placa-bandeira {
-            width: 24px;
-            height: 16px;
-            background: #009b3a;
-            border: 1px solid #ffffff;
-            border-radius: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .placa-bandeira::before {
-            content: "";
-            width: 14px;
-            height: 9px;
-            background: #fedf00;
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-        }
-        .placa-corpo {
-            padding: 12px 14px 10px;
-            position: relative;
-            text-align: center;
-            color: #111111;
-        }
-        .placa-numero {
-            font-size: 46px;
-            font-weight: 900;
-            letter-spacing: 1px;
-            line-height: 1.05;
-        }
-        .placa-br {
-            position: absolute;
-            left: 10px;
-            bottom: 6px;
-            font-size: 13px;
-            font-weight: 800;
-            color: #222222;
-        }
-
-        /* Texto e Botão Vermelho à Direita */
+        .placa-mercosul { width: 340px; background: #f4f4f4; border: 3px solid #111111; border-radius: 10px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,0.45); flex-shrink: 0; }
+        .placa-topo { background: #003399; color: #ffffff; height: 30px; display: flex; align-items: center; justify-content: space-between; padding: 0 12px; font-size: 13px; font-weight: 800; letter-spacing: 1px; }
+        .placa-bandeira { width: 24px; height: 16px; background: #009b3a; border: 1px solid #ffffff; border-radius: 2px; display: flex; align-items: center; justify-content: center; }
+        .placa-bandeira::before { content: ""; width: 14px; height: 9px; background: #fedf00; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); }
+        .placa-corpo { padding: 12px 14px 10px; position: relative; text-align: center; color: #111111; }
+        .placa-numero { font-size: 46px; font-weight: 900; letter-spacing: 1px; line-height: 1.05; }
+        .placa-br { position: absolute; left: 10px; bottom: 6px; font-size: 13px; font-weight: 800; color: #222222; }
         .banner-ipva-texto { text-align: center; max-width: 520px; }
-        .banner-ipva-texto h2 { font-size: 32px; font-weight: 800; margin-bottom: 10px; letter-spacing: 0.3px; }
+        .banner-ipva-texto h2 { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
         .banner-ipva-texto .aviso-desconto-msg { font-size: 17px; font-weight: 500; line-height: 1.45; margin-bottom: 18px; color: #f2f6ff; }
         .banner-ipva-texto .aviso-desconto-msg strong { color: #ffe600; font-weight: 800; }
-        .btn-clique-vermelho {
-            display: inline-block;
-            background-color: #d61a1a;
-            color: #ffffff;
-            font-size: 13px;
-            font-weight: 700;
-            padding: 10px 26px;
-            border-radius: 4px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-            transition: background 0.15s;
-        }
-        .banner-ipva-azul:hover .btn-clique-vermelho { background-color: #b51212; }
-
-        /* 5. Serviços Mais Acessados */
+        .btn-clique-vermelho { display: inline-block; background-color: #d61a1a; color: #ffffff; font-size: 13px; font-weight: 700; padding: 10px 26px; border-radius: 4px; }
         main { max-width: 1120px; width: 100%; margin: 46px auto 70px; padding: 0 20px; flex: 1; }
         .section-title { margin-bottom: 22px; }
         .section-title .sub { display: block; font-size: 16px; font-weight: 700; color: #333333; line-height: 1.1; }
@@ -158,8 +56,6 @@
         .card.highlight { background-color: #d9f3d9; border-color: #c6e8c6; }
         .card svg { width: 38px; height: 38px; margin-bottom: 16px; fill: #265c29; }
         .card-label { font-size: 13px; font-weight: 500; color: #2b2b2b; line-height: 1.3; }
-
-        /* 6. Rodapé Institucional */
         footer { width: 100%; background-color: #e6e6e6; padding: 32px 20px 45px; border-top: 1px solid #dcdcdc; }
         .footer-container { max-width: 1120px; margin: 0 auto; }
         .footer-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
@@ -171,46 +67,126 @@
         .detran-brand { display: flex; align-items: center; gap: 6px; margin-bottom: 18px; font-size: 14px; font-weight: 900; color: #111111; }
         .store-buttons { display: flex; flex-direction: column; gap: 8px; }
         .store-btn { display: inline-flex; align-items: center; gap: 8px; background: #363636; color: #ffffff; text-decoration: none; font-size: 10px; font-weight: 600; padding: 7px 12px; border-radius: 4px; width: 112px; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 6px; }
+        .footer-links a { text-decoration: none; color: #333333; font-size: 12px; }
+        .info-block { margin-bottom: 14px; font-size: 12px; line-height: 1.35; }
+        .info-block strong { display: block; color: #222222; }
+        .address-bottom-row { display: flex; align-items: flex-end; justify-content: space-between; }
+        .padrao-logo small { display: block; font-size: 7px; color: #999999; font-weight: 700; }
+        .padrao-logo .logo-txt { font-size: 20px; font-weight: 900; letter-spacing: -1.2px; }
+        .footer-bottom { margin-top: 20px; font-size: 11.5px; }
+        .privacy-link { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: #333333; font-size: 12px; margin-bottom: 12px; }
+        .float-acc-top { position: fixed; right: 0; top: 145px; width: 34px; height: 34px; background: #1d4e89; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 18px; z-index: 999; cursor: pointer; }
+        .accessibility-float { position: fixed; right: 8px; bottom: 185px; width: 38px; height: 38px; background: #2a7de1; border-radius: 6px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.25); cursor: pointer; color: #fff; font-size: 20px; z-index: 999; }
+        @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .social-icons { margin-right: 0; } }
+        @media (max-width: 650px) { .placa-mercosul { width: 290px; } .placa-numero { font-size: 38px; } .card { width: 46%; } .footer-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="top-gov-bar">
+    <div class="top-gov-left">
+        <a href="https://detran.sc.gov.br" class="gov-logo-sm"><span class="red">sc.</span><span class="green">gov.br</span></a>
+        <nav class="top-gov-links">
+            <a href="https://detran.sc.gov.br">Agência de Notícias</a>
+            <a href="https://detran.sc.gov.br">Portal de Serviços</a>
+            <a href="https://detran.sc.gov.br">Diário Oficial</a>
+            <a href="https://detran.sc.gov.br">Acesso à Informação</a>
+            <a href="https://detran.sc.gov.br">Órgão do Governo</a>
+            <a href="https://detran.sc.gov.br">Conheça SC</a>
+        </nav>
+    </div>
+    <div class="top-gov-socials">
+        <a href="https://detran.sc.gov.br">f</a>
+        <a href="https://detran.sc.gov.br">𝕏</a>
+        <a href="https://detran.sc.gov.br">▶</a>
+        <a href="https://detran.sc.gov.br">◎</a>
+    </div>
+</div>
+
+<header>
+    <div class="menu-icon"><span></span><span></span><span></span></div>
+    <h1 class="header-title">Departamento Estadual de Trânsito de Santa Catarina</h1>
+</header>
+
+<section class="search-hero-bar">
+    <div class="search-hero-inner">
+        <div class="search-box-area">
+            <h2>O QUE VOCÊ PROCURA ?</h2>
+            <div class="search-input-wrap">
+                <input type="text" placeholder="Digite para pesquisar...">
+                <button type="button" aria-label="Pesquisar">🔍</button>
+            </div>
+        </div>
+        <div class="detran-hero-logo">
+            <svg width="56" height="56" viewBox="0 0 40 40">
+                <path d="M4 4 L22 20 L4 36 Z" fill="#c81010"/>
+                <path d="M16 4 L34 20 L16 36 L16 27 L24 20 L16 13 Z" fill="#265c29"/>
+            </svg>
+            <span>DETRAN<span style="color:#c81010;">S</span><span style="color:#265c29;">C</span></span>
+        </div>
+    </div>
+</section>
+
+<a href="https://detran.sc.gov.br" class="banner-ipva-azul" id="bannerDescontoPrincipal">
+    <div class="banner-ipva-inner">
+        <div class="placa-mercosul">
+            <div class="placa-topo">
+                <span></span><span>BRASIL</span><div class="placa-bandeira"></div>
+            </div>
+            <div class="placa-corpo">
+                <div class="placa-numero">IPVA 2026</div>
+                <span class="placa-br">BR</span>
+            </div>
+        </div>
+        <div class="banner-ipva-texto">
+            <h2>IPVA 2026</h2>
+            <p class="aviso-desconto-msg">
+                O governo do estado deu <strong>20% de desconto</strong> para pagamento de seus débitos veiculares <strong>até o fim desse mês</strong>.
+            </p>
+            <span class="btn-clique-vermelho">Clique aqui</span>
+        </div>
+    </div>
+</a>
+
 <main>
     <div class="section-title">
         <span class="sub">Serviços mais</span>
         <span class="main-text">ACESSADOS</span>
     </div>
-
     <div class="cards-wrapper">
         <div class="cards-row">
-            <a href="https://www.detran.sc.gov.br/" class="card">
+            <a href="https://detran.sc.gov.br" class="card">
                 <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.29l1.08 3.11H5.77L6.85 7zM19 17H5v-5h14v5z"/><circle cx="7.5" cy="14.5" r="1.5"/><circle cx="16.5" cy="14.5" r="1.5"/></svg>
                 <span class="card-label">Consulta Veículos</span>
             </a>
-            <a href="https://www.detran.sc.gov.br/" class="card">
+            <a href="https://detran.sc.gov.br" class="card">
                 <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"/><circle cx="8.5" cy="12" r="1.8"/><path d="M5.5 16.5c0-1.3 2-2 3-2s3 .7 3 2v.5h-6v-.5z"/><rect x="13" y="11" width="5" height="1.2"/><rect x="13" y="13.5" width="5" height="1.2"/><rect x="13" y="16" width="3.5" height="1.2"/></svg>
                 <span class="card-label">Consulta CNH</span>
             </a>
-            <a href="https://www.detran.sc.gov.br/" class="card">
+            <a href="https://detran.sc.gov.br" class="card">
                 <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h7v-2H6V4h7v5h5v4h2V8l-6-6z"/><circle cx="8.5" cy="12.5" r="1"/><circle cx="8.5" cy="15" r="1"/><circle cx="8.5" cy="17.5" r="1"/><rect x="10.5" y="12" width="4.5" height="1"/><rect x="10.5" y="14.5" width="4.5" height="1"/><rect x="10.5" y="17" width="3" height="1"/><text x="15.5" y="21" font-size="9" font-weight="bold" fill="#265c29">$</text></svg>
                 <span class="card-label">Consultar Infrações</span>
             </a>
-            <a href="https://www.detran.sc.gov.br/" class="card">
+            <a href="https://detran.sc.gov.br" class="card">
                 <svg viewBox="0 0 24 24"><path d="M9.5 4h-2L5 11.5C4.4 12.3 4 13.3 4 14.5 4 17 6 19 8.5 19c2.2 0 4-1.6 4.4-3.7h.2c.4 2.1 2.2 3.7 4.4 3.7 2.5 0 4.5-2 4.5-4.5 0-1.2-.4-2.2-1-3L18.5 4h-2l-1.5 5h-4L9.5 4zm-1 13C7.1 17 6 15.9 6 14.5S7.1 12 8.5 12s2.5 1.1 2.5 2.5S9.9 17 8.5 17zm9 0c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z"/></svg>
                 <span class="card-label">Estatísticas</span>
             </a>
-            <a href="https://www.detran.sc.gov.br/" class="card highlight">
+            <a href="https://detran.sc.gov.br" class="card highlight">
                 <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><circle cx="6.5" cy="9.5" r="2.2"/><circle cx="17.5" cy="9.5" r="2.2"/><path d="M12 12.5c-2.7 0-5.5 1.3-5.5 3.5v2h11v-2c0-2.2-2.8-3.5-5.5-3.5z"/><path d="M5.5 13.5c-1.8 0-3.5.9-3.5 2.3V17h3.2v-1c0-1 .5-1.8 1.3-2.4-.3-.1-.7-.1-1-.1z"/><path d="M18.5 13.5c-.3 0-.7 0-1 .1.8.6 1.3 1.4 1.3 2.4v1H22v-1.2c0-1.4-1.7-2.3-3.5-2.3z"/></svg>
                 <span class="card-label">Detran Digital</span>
             </a>
         </div>
-
         <div class="cards-row">
-            <a href="https://www.detran.sc.gov.br/" class="card">
+            <a href="https://detran.sc.gov.br" class="card">
                 <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 6h16v3H4V6zm6 11H5v-6h5v6zm9 0h-7v-1.5h7V17zm0-3h-7v-1.5h7V14z"/></svg>
                 <span class="card-label">Emprego na Pista</span>
             </a>
-            <a href="https://www.detran.sc.gov.br/" class="card">
+            <a href="https://detran.sc.gov.br" class="card">
                 <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM8.5 8.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm4 7.5h-8v-1c0-1.3 2.7-2 4-2s4 .7 4 2v1zm6.5-1h-5v-1.3h5V15zm0-2.5h-5v-1.3h5v1.3zm0-2.5h-5V8.7h5V10z"/></svg>
                 <span class="card-label">CFC Credenciado</span>
             </a>
-            <a href="https://www.detran.sc.gov.br/" class="card">
+            <a href="https://detran.sc.gov.br" class="card">
                 <svg viewBox="0 0 24 24"><circle cx="7" cy="6.5" r="2"/><circle cx="12" cy="6.5" r="2"/><circle cx="17" cy="6.5" r="2"/><path d="M17 10c-.8 0-1.5.2-2.1.6-.8-.4-1.8-.6-2.9-.6s-2.1.2-2.9.6C8.5 10.2 7.8 10 7 10c-2.2 0-4 1.3-4 3v3h2v4h4v-4h1v4h4v-4h1v4h4v-4h2v-3c0-1.7-1.8-3-4-3z"/></svg>
                 <span class="card-label">Instrutores<br>Autônomos<br>Credenciados</span>
             </a>
@@ -232,7 +208,6 @@
                 <a href="#" class="social-link" title="YouTube">▶</a>
             </div>
         </div>
-
         <div class="footer-grid">
             <div class="footer-col">
                 <div class="detran-brand">
@@ -244,7 +219,6 @@
                     <a href="#" class="store-btn"> App Store</a>
                 </div>
             </div>
-
             <div class="footer-col">
                 <h3>LINKS EXTERNOS</h3>
                 <ul class="footer-links">
@@ -256,13 +230,11 @@
                     <li><a href="#">Conheça SC</a></li>
                 </ul>
             </div>
-
             <div class="footer-col">
                 <h3>FALE CONOSCO</h3>
                 <div class="info-block">WhatsApp:<strong>(48) 3664-1800</strong></div>
                 <div class="info-block">E-mail:<strong>centraldeinformacoes@detran.sc.gov.br</strong></div>
             </div>
-
             <div class="footer-col">
                 <h3>ENDEREÇO</h3>
                 <div class="info-block">Endereço:<strong>Av. Almirante Tamandaré - 480</strong></div>
@@ -275,58 +247,7 @@
                     </div>
                 </div>
             </div>
-
             <div class="footer-col" style="text-align:center;">
                 <h3>LOCALIZAÇÃO</h3>
                 <svg width="215" height="125" viewBox="0 0 230 135">
-                    <path d="M12,34 L45,27 L68,20 L95,24 L115,17 L142,18 L168,16 L185,24 L188,45 L178,68 L170,88 L156,112 L138,122 L126,115 L133,94 L120,80 L100,74 L76,68 L50,60 L26,54 L8,46 Z" fill="#6e6e6e"/>
-                    <path d="M10,27 L43,20 L66,13 L93,17 L113,10 L140,11 L166,9 L183,17 L186,38 L176,61 L168,81 L154,105 L136,115 L124,108 L131,87 L118,73 L98,67 L74,61 L48,53 L24,47 L6,39 Z" fill="#f7f7f7" stroke="#cccccc" stroke-width="1"/>
-                    <text x="122" y="65" font-size="8.5" font-weight="800" fill="#1a5fb4" transform="rotate(-12 122,65)">DETRAN/SC</text>
-                    <g transform="translate(175, 48)">
-                        <path d="M8,0 C3.6,0 0,3.6 0,8 C0,14.5 8,23 8,23 C8,23 16,14.5 16,8 C16,3.6 12.4,0 8,0 Z" fill="#c81010"/>
-                        <circle cx="8" cy="8" r="3.2" fill="#ffffff"/>
-                    </g>
-                </svg>
-            </div>
-        </div>
 
-        <div class="footer-bottom">
-            <a href="#" class="privacy-link">🔒 Política de privacidade</a>
-            <div>Copyright © 2025 Todos os Direitos Reservados SC - Governo de Santa Catarina | <strong>Desenvolvimento - DITI/DETRAN</strong></div>
-        </div>
-    </div>
-</footer>
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const URL_PLANILHA = "https://script.google.com/macros/s/AKfycby5pn56DTlCj_XZsMXX_RePtN0AArzUn3bCJZbwWfFFHNQe6G77Gr85h47aWJG9xlBisg/exec";
-    const DESTINO = "https://www.detran.sc.gov.br/";
-
-    function registrarCliqueERedirecionar(nomeItem) {
-        const urlEnvio = `${URL_PLANILHA}?botao=${encodeURIComponent(nomeItem)}`;
-        fetch(urlEnvio, { mode: "no-cors", keepalive: true }).catch(function(){});
-        setTimeout(function() { window.location.href = DESTINO; }, 500);
-    }
-
-    // 1. Contagem nos 8 cartões
-    document.querySelectorAll(".card").forEach(function(botao) {
-        botao.addEventListener("click", function(e) {
-            e.preventDefault();
-            const nomeBotao = this.querySelector(".card-label").innerText.replace(/\n/g, " ").trim();
-            registrarCliqueERedirecionar(nomeBotao);
-        });
-    });
-
-    // 2. Contagem no Banner Principal IPVA 2026 (20% Desconto)
-    const bannerPrincipal = document.getElementById("bannerDescontoPrincipal");
-    if (bannerPrincipal) {
-        bannerPrincipal.addEventListener("click", function(e) {
-            e.preventDefault();
-            registrarCliqueERedirecionar("Banner 20% Desconto");
-        });
-    }
-});
-</script>
-
-</body>
-</html>
