@@ -36,32 +36,6 @@
         </table>
     </div>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const NAMESPACE = "detransc_painel_unico_99";
-    const DESTINO_PADRAO = "https://www.detran.sc.gov.br/";
-    const botoes = document.querySelectorAll(".card");
-
-    botoes.forEach(function(botao) {
-        // Já atualiza o href visual do botão para o site oficial
-        botao.setAttribute("href", DESTINO_PADRAO);
-
-        botao.addEventListener("click", function(e) {
-            e.preventDefault(); // Aguarda o registro do clique antes de sair da página
-
-            const texto = this.querySelector(".card-label").innerText;
-            const chave = texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                               .toLowerCase().replace(/[^a-z0-9]/g, "_");
-
-            // Registra +1 clique e imediatamente redireciona para https://www.detran.sc.gov.br/
-            fetch(`https://jasoncameron.dev{NAMESPACE}/${chave}`)
-                .finally(function() {
-                    window.location.href = DESTINO_PADRAO;
-                });
-        });
-    });
-});
-</script>
 
 </body>
 </html>
