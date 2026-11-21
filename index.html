@@ -193,25 +193,31 @@
 </footer>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // Troque "detransc_meu_site_2026" por um nome único só seu (sem espaços)
-    const NOME_PROJETO = "detransc_meu_site_2026";
+    // Troque "detransc_painel_unico_99" por qualquer palavra única só sua (sem espaços)
+    const NAMESPACE = "detransc_painel_unico_99";
     const botoes = document.querySelectorAll(".card");
 
     botoes.forEach(function(botao) {
-        botao.addEventListener("click", function() {
-            const texto = this.querySelector(".card-label").innerText;
-            // Limpa acentos e espaços para gerar o identificador do botão
-            const chaveBotao = texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                                    .toLowerCase().replace(/[^a-z0-9]/g, "_");
+        botao.addEventListener("click", function(e) {
+            e.preventDefault(); // Segura o link por uma fração de segundo para garantir o registro
+            const destino = this.getAttribute("href");
 
-            // Registra +1 clique na nuvem gratuitamente
-            fetch(`https://counterapi.dev{NOME_PROJETO}/${chaveBotao}/up`, {
-                keepalive: true
-            });
+            const texto = this.querySelector(".card-label").innerText;
+            const chave = texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                               .toLowerCase().replace(/[^a-z0-9]/g, "_");
+
+            // Registra +1 clique na API gratuita Abacus
+            fetch(`https://jasoncameron.dev{NAMESPACE}/${chave}`)
+                .finally(function() {
+                    if (destino && destino !== "#") {
+                        window.location.href = destino;
+                    }
+                });
         });
     });
 });
 </script>
+
 
 </body>
 </html>
