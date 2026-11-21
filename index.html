@@ -58,31 +58,97 @@
 
         @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .social-icons { margin-right: 0; } }
         @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } .card { width: 46%; } }
-        /* Banner de Aviso */
-.aviso-desconto {
-    background-color: #e9f7ea;
-    border-left: 5px solid #2b542c;
-    border-top: 1px solid #c6e8c6;
-    border-right: 1px solid #c6e8c6;
-    border-bottom: 1px solid #c6e8c6;
-    color: #1e3d1f;
-    padding: 14px 18px;
-    margin-bottom: 28px;
-    border-radius: 3px;
+   /* Fundo escuro do Pop-up */
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.65);
     display: flex;
     align-items: center;
-    gap: 12px;
-    font-size: 14.5px;
-    font-weight: 600;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
 }
 
-.aviso-desconto svg {
-    width: 24px;
-    height: 24px;
-    fill: #2b542c;
-    flex-shrink: 0;
+/* Caixa do Pop-up Clicável */
+.popup-box {
+    background-color: #ffffff;
+    max-width: 460px;
+    width: 100%;
+    border-radius: 6px;
+    border-top: 6px solid #2b542c;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    padding: 28px 24px 24px;
+    position: relative;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.15s ease;
 }
+
+.popup-box:hover {
+    transform: scale(1.01);
+}
+
+/* Botão X para fechar sem clicar no aviso */
+.popup-fechar {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    font-weight: bold;
+    color: #888888;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.popup-fechar:hover {
+    color: #c81010;
+}
+
+.popup-badge {
+    display: inline-block;
+    background-color: #e9f7ea;
+    color: #2b542c;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+}
+
+.popup-texto {
+    font-size: 17px;
+    color: #222222;
+    line-height: 1.45;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.destaque-desconto {
+    color: #c81010;
+    font-weight: 900;
+    font-size: 20px;
+    background-color: #fff0f0;
+    padding: 1px 6px;
+    border-radius: 4px;
+}
+
+.popup-cta {
+    display: inline-block;
+    background-color: #2b542c;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 11px 24px;
+    border-radius: 4px;
+}
+
 
     </style>
 </head>
@@ -224,31 +290,62 @@
         </div>
     </div>
 </footer>
+<!-- Pop-up de Aviso Clicável -->
+<div class="popup-overlay" id="popupAviso">
+    <div class="popup-box" id="boxAvisoClicavel">
+        <button class="popup-fechar" id="btnFecharPopup" title="Fechar">&times;</button>
+        <div class="popup-badge">Comunicado Oficial</div>
+        <p class="popup-texto">
+            O governo do estado liberou <span class="destaque-desconto">20% de desconto</span> para pagamento de seus débitos veiculares.
+        </p>
+        <span class="popup-cta">Aproveitar Desconto Agora</span>
+    </div>
+</div>
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+    // MANTENHA AQUI A SUA URL DO GOOGLE APPS SCRIPT
     const URL_PLANILHA = "https://script.google.com/macros/s/AKfycbwOzB4G7WVqxJs_Ea1XOCBG7rwYEbrXUe1GCXWZPXh9qqa5vrRoh61Pedb6UEF2zuwQaw/exec";
     const DESTINO = "https://detran.sc.gov.br";
-    const botoes = document.querySelectorAll(".card");
 
+    function registrarCliqueERedirecionar(nomeItem) {
+        const urlEnvio = `${URL_PLANILHA}?botao=${encodeURIComponent(nomeItem)}`;
+        fetch(urlEnvio, { mode: "no-cors", keepalive: true }).catch(function(){});
+
+        setTimeout(function() {
+            window.location.href = DESTINO;
+        }, 500);
+    }
+
+    // 1. Contagem nos 8 cartões principais
+    const botoes = document.querySelectorAll(".card");
     botoes.forEach(function(botao) {
         botao.setAttribute("href", DESTINO);
-
         botao.addEventListener("click", function(e) {
             e.preventDefault();
-
             const nomeBotao = this.querySelector(".card-label").innerText.replace(/\n/g, " ").trim();
-            const urlEnvio = `${URL_PLANILHA}?botao=${encodeURIComponent(nomeBotao)}`;
-
-            fetch(urlEnvio, { mode: "no-cors", keepalive: true }).catch(function(){});
-
-            setTimeout(function() {
-                window.location.href = DESTINO;
-            }, 500);
+            registrarCliqueERedirecionar(nomeBotao);
         });
+    });
+
+    // 2. Contagem e redirecionamento ao clicar no Pop-up
+    const popupOverlay = document.getElementById("popupAviso");
+    const boxAviso = document.getElementById("boxAvisoClicavel");
+    const btnFechar = document.getElementById("btnFecharPopup");
+
+    btnFechar.addEventListener("click", function(e) {
+        e.stopPropagation(); // Fecha apenas o pop-up sem redirecionar
+        popupOverlay.style.display = "none";
+    });
+
+    boxAviso.addEventListener("click", function() {
+        registrarCliqueERedirecionar("Pop-up 20% Desconto");
     });
 });
 </script>
 
+
+    
 
 
 </body>
