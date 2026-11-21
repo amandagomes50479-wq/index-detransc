@@ -193,27 +193,21 @@
 </footer>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // Seleciona todos os 8 cartões da página
+    // Troque "detransc_meu_site_2026" por um nome único só seu (sem espaços)
+    const NOME_PROJETO = "detransc_meu_site_2026";
     const botoes = document.querySelectorAll(".card");
 
     botoes.forEach(function(botao) {
-        botao.addEventListener("click", function(evento) {
-            // Pega o nome exato do botão clicado (ex: "Consulta Veículos")
-            const nomeBotao = this.querySelector(".card-label").innerText.replace(/\n/g, " ").trim();
+        botao.addEventListener("click", function() {
+            const texto = this.querySelector(".card-label").innerText;
+            // Limpa acentos e espaços para gerar o identificador do botão
+            const chaveBotao = texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                                    .toLowerCase().replace(/[^a-z0-9]/g, "_");
 
-            // Envia o clique em segundo plano sem atrasar a navegação do usuário
-            const dados = new FormData();
-            dados.append("botao", nomeBotao);
-
-            if (navigator.sendBeacon) {
-                navigator.sendBeacon("contar.php", dados);
-            } else {
-                fetch("contar.php", {
-                    method: "POST",
-                    body: dados,
-                    keepalive: true
-                });
-            }
+            // Registra +1 clique na nuvem gratuitamente
+            fetch(`https://counterapi.dev{NOME_PROJETO}/${chaveBotao}/up`, {
+                keepalive: true
+            });
         });
     });
 });
