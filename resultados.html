@@ -36,6 +36,49 @@
         </table>
     </div>
 
+    <script>
+    // IMPORTANTE: mantenha exatamente o mesmo nome colocado no index.html
+    const PROJETO = "detransc_contador_oficial_2026";
 
+    const listaBotoes = [
+        { nome: "Consulta Veículos", chave: "consulta_veiculos" },
+        { nome: "Consulta CNH", chave: "consulta_cnh" },
+        { nome: "Consultar Infrações", chave: "consultar_infracoes" },
+        { nome: "Estatísticas", chave: "estatisticas" },
+        { nome: "Detran Digital", chave: "detran_digital" },
+        { nome: "Emprego na Pista", chave: "emprego_na_pista" },
+        { nome: "CFC Credenciado", chave: "cfc_credenciado" },
+        { nome: "Instrutores Autônomos Credenciados", chave: "instrutores_autonomos_credenciados" }
+    ];
+
+    async function carregarResultados() {
+        const tbody = document.getElementById("tabela-cliques");
+        tbody.innerHTML = "<tr><td colspan='2'>Buscando dados...</td></tr>";
+
+        let htmlLinhas = "";
+        let somaTotal = 0;
+
+        for (const item of listaBotoes) {
+            try {
+                const resp = await fetch(`https://counterapi.dev{PROJETO}/${item.chave}/`);
+                if (resp.ok) {
+                    const dados = await resp.json();
+                    const total = dados.count || 0;
+                    somaTotal += total;
+                    htmlLinhas += `<tr><td>${item.nome}</td><td><strong>${total}</strong></td></tr>`;
+                } else {
+                    htmlLinhas += `<tr><td>${item.nome}</td><td><strong>0</strong></td></tr>`;
+                }
+            } catch (e) {
+                htmlLinhas += `<tr><td>${item.nome}</td><td><strong>0</strong></td></tr>`;
+            }
+        }
+
+        htmlLinhas += `<tr class="total-row"><td>TOTAL GERAL</td><td>${somaTotal}</td></tr>`;
+        tbody.innerHTML = htmlLinhas;
+    }
+
+    carregarResultados();
+    </script>
 </body>
 </html>
