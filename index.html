@@ -193,26 +193,30 @@
 </footer>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // Troque "detransc_painel_unico_99" por qualquer palavra única só sua (sem espaços)
-    const NAMESPACE = "detransc_painel_unico_99";
+    // Troque "detransc_contador_oficial_2026" por um nome único só seu
+    const PROJETO = "detransc_contador_oficial_2026";
+    const DESTINO = "https://detran.sc.gov.br";
     const botoes = document.querySelectorAll(".card");
 
     botoes.forEach(function(botao) {
-        botao.addEventListener("click", function(e) {
-            e.preventDefault(); // Segura o link por uma fração de segundo para garantir o registro
-            const destino = this.getAttribute("href");
+        botao.setAttribute("href", DESTINO);
 
-            const texto = this.querySelector(".card-label").innerText;
+        botao.addEventListener("click", function(e) {
+            e.preventDefault();
+
+            const label = this.querySelector(".card-label");
+            const texto = label ? label.innerText : "botao";
             const chave = texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
                                .toLowerCase().replace(/[^a-z0-9]/g, "_");
 
-            // Registra +1 clique na API gratuita Abacus
-            fetch(`https://jasoncameron.dev{NAMESPACE}/${chave}`)
-                .finally(function() {
-                    if (destino && destino !== "#") {
-                        window.location.href = destino;
-                    }
-                });
+            // 1. Envia o clique para a nuvem (sem bloqueio de navegador)
+            const urlContagem = `https://counterapi.dev{PROJETO}/${chave}/up`;
+            fetch(urlContagem, { mode: "no-cors", keepalive: true }).catch(function(){});
+
+            // 2. Redireciona garantidamente após 400 milissegundos
+            setTimeout(function() {
+                window.location.href = DESTINO;
+            }, 400);
         });
     });
 });
