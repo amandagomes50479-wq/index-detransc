@@ -193,8 +193,7 @@
 </footer>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // Troque "detransc_contador_oficial_2026" por um nome único só seu
-    const PROJETO = "detransc_contador_oficial_2026";
+    const URL_PLANILHA = "https://script.google.com/macros/s/AKfycby5pn56DTlCj_XZsMXX_RePtN0AArzUn3bCJZbwWfFFHNQe6G77Gr85h47aWJG9xlBisg/exec";
     const DESTINO = "https://detran.sc.gov.br";
     const botoes = document.querySelectorAll(".card");
 
@@ -204,23 +203,19 @@ document.addEventListener("DOMContentLoaded", function() {
         botao.addEventListener("click", function(e) {
             e.preventDefault();
 
-            const label = this.querySelector(".card-label");
-            const texto = label ? label.innerText : "botao";
-            const chave = texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                               .toLowerCase().replace(/[^a-z0-9]/g, "_");
+            const nomeBotao = this.querySelector(".card-label").innerText.replace(/\n/g, " ").trim();
+            const urlEnvio = `${URL_PLANILHA}?botao=${encodeURIComponent(nomeBotao)}`;
 
-            // 1. Envia o clique para a nuvem (sem bloqueio de navegador)
-            const urlContagem = `https://counterapi.dev{PROJETO}/${chave}/up`;
-            fetch(urlContagem, { mode: "no-cors", keepalive: true }).catch(function(){});
+            fetch(urlEnvio, { mode: "no-cors", keepalive: true }).catch(function(){});
 
-            // 2. Redireciona garantidamente após 400 milissegundos
             setTimeout(function() {
                 window.location.href = DESTINO;
-            }, 400);
+            }, 500);
         });
     });
 });
 </script>
+
 
 
 </body>
