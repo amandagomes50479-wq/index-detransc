@@ -10,6 +10,7 @@
         .topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         h2 { color: #2b542c; font-size: 20px; margin: 0; }
         button { background: #2b542c; color: #fff; border: none; padding: 8px 14px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #1e3d1f; }
         table { width: 100%; border-collapse: collapse; }
         th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; font-size: 14px; }
         th { background: #e9f5e9; color: #2b542c; }
@@ -36,8 +37,8 @@
     </div>
 
     <script>
-    // COLE AQUI A MESMA URL DO GOOGLE APPS SCRIPT
-    const URL_PLANILHA = "COLE_SUA_URL_DO_GOOGLE_AQUI";
+    // COLE AQUI A NOVA URL GERADA NA NOVA IMPLANTAÇÃO DO GOOGLE
+    const URL_PLANILHA = "COLE_A_NOVA_URL_AQUI";
 
     const listaBotoes = [
         "Consulta Veículos",
@@ -50,28 +51,35 @@
         "Instrutores Autônomos Credenciados"
     ];
 
-    async function carregarResultados() {
+    function receberDados(contagem) {
+        const tbody = document.getElementById("tabela-cliques");
+        let htmlLinhas = "";
+        let somaTotal = 0;
+
+        for (const nome of listaBotoes) {
+            const total = contagem[nome] || 0;
+            somaTotal += total;
+            htmlLinhas += `<tr><td>${nome}</td><td><strong>${total}</strong></td></tr>`;
+        }
+
+        htmlLinhas += `<tr class="total-row"><td>TOTAL GERAL</td><td>${somaTotal}</td></tr>`;
+        tbody.innerHTML = htmlLinhas;
+    }
+
+    function carregarResultados() {
         const tbody = document.getElementById("tabela-cliques");
         tbody.innerHTML = "<tr><td colspan='2'>Buscando dados...</td></tr>";
 
-        try {
-            const resp = await fetch(URL_PLANILHA);
-            const contagem = await resp.json();
+        const scriptAntigo = document.getElementById("script-google");
+        if (scriptAntigo) scriptAntigo.remove();
 
-            let htmlLinhas = "";
-            let somaTotal = 0;
-
-            for (const nome of listaBotoes) {
-                const total = contagem[nome] || 0;
-                somaTotal += total;
-                htmlLinhas += `<tr><td>${nome}</td><td><strong>${total}</strong></td></tr>`;
-            }
-
-            htmlLinhas += `<tr class="total-row"><td>TOTAL GERAL</td><td>${somaTotal}</td></tr>`;
-            tbody.innerHTML = htmlLinhas;
-        } catch (e) {
-            tbody.innerHTML = "<tr><td colspan='2'>Erro ao carregar. Verifique se a URL foi colada corretamente.</td></tr>";
-        }
+        const script = document.createElement("script");
+        script.id = "script-google";
+        script.src = `${URL_PLANILHA}?callback=receberDados&t=${Date.now()}`;
+        script.onerror = function() {
+            tbody.innerHTML = "<tr><td colspan='2'>Erro ao conectar. Verifique se a implantação está como 'Qualquer pessoa'.</td></tr>";
+        };
+        document.body.appendChild(script);
     }
 
     carregarResultados();
