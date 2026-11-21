@@ -59,162 +59,39 @@
         @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .social-icons { margin-right: 0; } }
         @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } .card { width: 46%; } }
  
-/* ================= CARROSSEL COM FUNDOS ORIGINAIS E TEXTOS PADRONIZADOS ================= */
-.hero-carousel {
-    position: relative;
-    width: 100%;
-    height: 310px;
-    overflow: hidden;
-    background-color: #1b3b1c;
-    border-bottom: 1px solid #d4d4d4;
-}
-
-.carousel-slides {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.5s ease-in-out;
-}
-
+/* Ajuste das imagens locais no fundo do carrossel */
 .carousel-slide {
-    min-width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 10%;
-    text-decoration: none;
-    color: #ffffff;
     position: relative;
+    overflow: hidden;
 }
 
-/* Camada escura leve para garantir leitura nítida da fonte sobre as imagens */
-.carousel-slide::before {
+.carousel-slide img.slide-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left center;
+    z-index: 0;
+}
+
+.carousel-slide::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.65) 100%);
+    background: linear-gradient(90deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.68) 100%);
     z-index: 1;
 }
 
 .slide-content {
-    max-width: 1120px;
-    width: 100%;
-    display: flex;
-    align-items: center;
     justify-content: flex-end;
     position: relative;
     z-index: 2;
 }
 
 .slide-text {
-    max-width: 580px;
-    text-align: left;
+    max-width: 560px;
 }
-
-.slide-tag {
-    display: inline-block;
-    background-color: rgba(255, 255, 255, 0.22);
-    padding: 4px 12px;
-    border-radius: 3px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-}
-
-.slide-text h2 {
-    font-size: 28px;
-    font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 10px;
-}
-
-.slide-text h2 span.destaque-amarelo {
-    color: #ffe600;
-}
-
-.slide-text p {
-    font-size: 15px;
-    font-weight: 400;
-    opacity: 0.95;
-    margin-bottom: 18px;
-    line-height: 1.4;
-}
-
-.slide-btn {
-    display: inline-block;
-    background-color: #ffffff;
-    color: #222222;
-    font-size: 13px;
-    font-weight: 700;
-    padding: 9px 20px;
-    border-radius: 3px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-}
-
-/* Setas Laterais */
-.carousel-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.35);
-    color: #ffffff;
-    border: none;
-    width: 38px;
-    height: 38px;
-    border-radius: 50%;
-    font-size: 20px;
-    cursor: pointer;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background 0.2s;
-}
-
-.carousel-arrow:hover {
-    background: rgba(0, 0, 0, 0.65);
-}
-
-.carousel-prev { left: 18px; }
-.carousel-next { right: 18px; }
-
-/* Bolinhas Indicadoras */
-.carousel-dots {
-    position: absolute;
-    bottom: 14px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-    z-index: 10;
-}
-
-.carousel-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
-    border: none;
-    cursor: pointer;
-}
-
-.carousel-dot.active {
-    background: #ffffff;
-    transform: scale(1.2);
-}
-
-@media (max-width: 768px) {
-    .hero-carousel { height: 270px; }
-    .slide-content { justify-content: center; }
-    .slide-text h2 { font-size: 21px; }
-}
-
 
     </style>
 </head>
@@ -224,152 +101,61 @@
     <div class="menu-icon"><span></span><span></span><span></span></div>
     <h1 class="header-title">Departamento Estadual de Trânsito de Santa Catarina</h1>
 </header>
-<section class="hero-carousel" id="heroCarousel">
-    <button class="carousel-arrow carousel-prev" id="prevSlide" aria-label="Anterior">&#10094;</button>
-    <button class="carousel-arrow carousel-next" id="nextSlide" aria-label="Próximo">&#10095;</button>
-
-    <div class="carousel-slides" id="carouselSlides">
-        <!-- Slide 1: Aviso de 20% de Desconto sobre o fundo do IPVA 2026 -->
-        <a href="https://detran.sc.gov.br" class="carousel-slide" data-nome="Banner Carrossel 20% Desconto"
-           style="background-image: url('https://detran.sc.gov.brwp-content/uploads/2026/01/Banner-IPVA-2026.png');">
-            <div class="slide-content">
-                <div class="slide-text">
-                    <span class="slide-tag">Programa de Regularização</span>
-                    <h2>O governo do estado liberou <span class="destaque-amarelo">20% de desconto</span> para pagamento de seus débitos veiculares.</h2>
-                    <p>Consulte a situação do seu veículo e emita sua guia com desconto agora mesmo.</p>
-                    <span class="slide-btn">Clique aqui</span>
-                </div>
-            </div>
-        </a>
-
-        <!-- Slide 2: IPVA 2026 -->
-        <a href="https://detran.sc.gov.br" class="carousel-slide" data-nome="Banner Carrossel IPVA 2026"
-           style="background-image: url('https://detran.sc.gov.brwp-content/uploads/2026/01/Banner-IPVA-2026.png');">
-            <div class="slide-content">
-                <div class="slide-text">
-                    <span class="slide-tag">IPVA 2026</span>
-                    <h2>Calendário do IPVA 2026.</h2>
-                    <p>Confira os prazos de vencimento de acordo com o final da placa do seu veículo.</p>
-                    <span class="slide-btn">Clique aqui</span>
-                </div>
-            </div>
-        </a>
-
-        <!-- Slide 3: Não caia em golpes! -->
-        <a href="https://detran.sc.gov.br" class="carousel-slide" data-nome="Banner Carrossel Golpes"
-           style="background-image: url('https://detran.sc.gov.brwp-content/uploads/2025/02/2-1-1-Compress.png');">
-            <div class="slide-content">
-                <div class="slide-text">
-                    <span class="slide-tag">Alerta de Segurança</span>
-                    <h2>Não caia em golpes!</h2>
-                    <p>Saiba como se proteger dos golpes virtuais envolvendo o Detran/SC.</p>
-                    <span class="slide-btn">Clique aqui</span>
-                </div>
-            </div>
-        </a>
-
-        <!-- Slide 4: Transporte Escolar -->
-        <a href="https://detran.sc.gov.br" class="carousel-slide" data-nome="Banner Carrossel Transporte Escolar"
-           style="background-image: url('https://detran.sc.gov.brwp-content/uploads/2024/02/transporte-escolar.png');">
-            <div class="slide-content">
-                <div class="slide-text">
-                    <span class="slide-tag">Fiscalização e Segurança</span>
-                    <h2>Transporte Escolar</h2>
-                    <p>Veja aqui se o Transporte escolar do seu filho está regular.</p>
-                    <span class="slide-btn">Clique aqui</span>
-                </div>
-            </div>
-        </a>
+<!-- Slide 1: Aviso de 20% de Desconto -->
+<a href="https://detran.sc.gov.br" class="carousel-slide" data-nome="Banner Carrossel 20% Desconto">
+    <img class="slide-bg" src="banner1.png" alt="Desconto 20%">
+    <div class="slide-content">
+        <div class="slide-text">
+            <span class="slide-tag">Programa de Regularização</span>
+            <h2>O governo do estado liberou <span class="destaque-amarelo">20% de desconto</span> para pagamento de seus débitos veiculares.</h2>
+            <p>Consulte a situação do seu veículo e emita sua guia com desconto agora mesmo.</p>
+            <span class="slide-btn">Clique aqui</span>
+        </div>
     </div>
+</a>
 
-    <div class="carousel-dots" id="carouselDots">
-        <button class="carousel-dot active" data-index="0"></button>
-        <button class="carousel-dot" data-index="1"></button>
-        <button class="carousel-dot" data-index="2"></button>
-        <button class="carousel-dot" data-index="3"></button>
+<!-- Slide 2: IPVA 2026 -->
+<a href="https://detran.sc.gov.br" class="carousel-slide" data-nome="Banner Carrossel IPVA 2026">
+    <img class="slide-bg" src="banner2.png" alt="IPVA 2026">
+    <div class="slide-content">
+        <div class="slide-text">
+            <span class="slide-tag">IPVA 2026</span>
+            <h2>Calendário do IPVA 2026.</h2>
+            <p>Confira os prazos de vencimento de acordo com o final da placa do seu veículo.</p>
+            <span class="slide-btn">Clique aqui</span>
+        </div>
     </div>
+</a>
+
+<!-- Slide 3: Não caia em golpes! -->
+<a href="https://detran.sc.gov.br" class="carousel-slide" data-nome="Banner Carrossel Golpes">
+    <img class="slide-bg" src="banner3.png" alt="Alerta de Golpes">
+    <div class="slide-content">
+        <div class="slide-text">
+            <span class="slide-tag">Alerta de Segurança</span>
+            <h2>Não caia em golpes!</h2>
+            <p>Saiba como se proteger dos golpes virtuais envolvendo o Detran/SC.</p>
+            <span class="slide-btn">Clique aqui</span>
+        </div>
+    </div>
+</a>
+
+<!-- Slide 4: Transporte Escolar -->
+<a href="https://detran.sc.gov.br" class="carousel-slide" data-nome="Banner Carrossel Transporte Escolar">
+    <img class="slide-bg" src="banner4.png" alt="Transporte Escolar">
+    <div class="slide-content">
+        <div class="slide-text">
+            <span class="slide-tag">Fiscalização e Segurança</span>
+            <h2>Transporte Escolar</h2>
+            <p>Veja aqui se o Transporte escolar do seu filho está regular.</p>
+            <span class="slide-btn">Clique aqui</span>
+        </div>
+    </div>
+</a>
+
 </section>
 
-    <div class="carousel-slides" id="carouselSlides">
-        <!-- Slide 1: Seu Aviso de 20% de Desconto -->
-        <a href="https://www.detran.sc.gov.br/" class="carousel-slide slide-desconto" data-nome="Banner Carrossel 20% Desconto">
-            <div class="slide-content">
-                <div class="slide-text">
-                    <span class="slide-tag">Programa de Regularização</span>
-                    <h2>O governo do estado liberou <span class="destaque-amarelo">20% de desconto</span> para pagamento de seus débitos veiculares.</h2>
-                    <p>Consulte a situação do seu veículo e emita sua guia com desconto agora mesmo.</p>
-                    <span class="slide-btn">Clique aqui</span>
-                </div>
-                <div class="slide-art">
-                    <svg width="130" height="130" viewBox="0 0 24 24" fill="rgba(255,255,255,0.25)">
-                        <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.29l1.08 3.11H5.77L6.85 7zM19 17H5v-5h14v5z"/>
-                        <circle cx="7.5" cy="14.5" r="1.5"/>
-                        <circle cx="16.5" cy="14.5" r="1.5"/>
-                    </svg>
-                </div>
-            </div>
-        </a>
-
-        <!-- Slide 2: IPVA 2026 -->
-        <a href="https://www.detran.sc.gov.br/" class="carousel-slide slide-ipva" data-nome="Banner Carrossel IPVA 2026">
-            <div class="slide-content">
-                <div class="slide-text">
-                    <span class="slide-tag">IPVA 2026</span>
-                    <h2>Calendário do IPVA 2026.</h2>
-                    <p>Confira os prazos de vencimento de acordo com o final da placa do seu veículo.</p>
-                    <span class="slide-btn">Clique aqui</span>
-                </div>
-                <div class="slide-art">
-                    <svg width="120" height="120" viewBox="0 0 24 24" fill="rgba(255,255,255,0.25)">
-                        <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/>
-                    </svg>
-                </div>
-            </div>
-        </a>
-
-        <!-- Slide 3: Não caia em golpes -->
-        <a href="https://www.detran.sc.gov.br/" class="carousel-slide slide-golpes" data-nome="Banner Carrossel Golpes">
-            <div class="slide-content">
-                <div class="slide-text">
-                    <span class="slide-tag">Alerta de Segurança</span>
-                    <h2>Não caia em golpes!</h2>
-                    <p>Saiba como se proteger dos golpes virtuais envolvendo o Detran/SC.</p>
-                    <span class="slide-btn">Clique aqui</span>
-                </div>
-                <div class="slide-art">
-                    <svg width="120" height="120" viewBox="0 0 24 24" fill="rgba(255,255,255,0.25)">
-                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/>
-                    </svg>
-                </div>
-            </div>
-        </a>
-
-        <!-- Slide 4: Transporte Escolar -->
-        <a href="https://www.detran.sc.gov.br/" class="carousel-slide slide-transporte" data-nome="Banner Carrossel Transporte Escolar">
-            <div class="slide-content">
-                <div class="slide-text">
-                    <span class="slide-tag">Fiscalização e Segurança</span>
-                    <h2>Transporte Escolar</h2>
-                    <p>Veja aqui se o Transporte escolar do seu filho está regular.</p>
-                    <span class="slide-btn">Clique aqui</span>
-                </div>
-                <div class="slide-art">
-                    <svg width="120" height="120" viewBox="0 0 24 24" fill="rgba(255,255,255,0.25)">
-                        <path d="M4 16c0 .88.39 1.67 1 2.22V20c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h8v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1.78c.61-.55 1-1.34 1-2.22V6c0-3.5-3.58-4-8-4s-8 .5-8 4v10zm3.5 1c-.83 0-1.5-.67-1.5-1.5S6.67 14 7.5 14s1.5.67 1.5 1.5S8.33 17 7.5 17zm9 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm1.5-6H6V6h12v5z"/>
-                    </svg>
-                </div>
-            </div>
-        </a>
-    </div>
-
-    <div class="carousel-dots" id="carouselDots">
-        <button class="carousel-dot active" data-index="0"></button>
-        <button class="carousel-dot" data-index="1"></button>
-        <button class="carousel-dot" data-index="2"></button>
-        <button class="carousel-dot" data-index="3"></button>
-    </div>
-</section>
-
+    
 
 <main>
    <a href="https://detran.sc.gov.br" class="banner-comunicado" id="bannerDesconto">
