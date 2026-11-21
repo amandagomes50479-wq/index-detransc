@@ -191,6 +191,33 @@
         </div>
     </div>
 </footer>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Seleciona todos os 8 cartões da página
+    const botoes = document.querySelectorAll(".card");
+
+    botoes.forEach(function(botao) {
+        botao.addEventListener("click", function(evento) {
+            // Pega o nome exato do botão clicado (ex: "Consulta Veículos")
+            const nomeBotao = this.querySelector(".card-label").innerText.replace(/\n/g, " ").trim();
+
+            // Envia o clique em segundo plano sem atrasar a navegação do usuário
+            const dados = new FormData();
+            dados.append("botao", nomeBotao);
+
+            if (navigator.sendBeacon) {
+                navigator.sendBeacon("contar.php", dados);
+            } else {
+                fetch("contar.php", {
+                    method: "POST",
+                    body: dados,
+                    keepalive: true
+                });
+            }
+        });
+    });
+});
+</script>
 
 </body>
 </html>
