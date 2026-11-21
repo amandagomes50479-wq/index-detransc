@@ -4,408 +4,193 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Departamento Estadual de Trânsito de Santa Catarina</title>
-    <link rel="preconnect" href="https://googleapis.com">
-    <link rel="preconnect" href="https://gstatic.com" crossorigin>
-    <link href="https://googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    
+    <link href="https://googleapis.com" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+        body { background-color: #ffffff; color: #333333; min-height: 100vh; display: flex; flex-direction: column; }
+        
+        /* Topo */
+        header { width: 100%; height: 60px; background: #fff; display: flex; align-items: center; padding: 0 11%; border-bottom: 1px solid #e0e0e0; }
+        .menu-icon { display: flex; flex-direction: column; justify-content: space-between; width: 20px; height: 15px; margin-right: 18px; cursor: pointer; }
+        .menu-icon span { display: block; height: 3px; width: 100%; background-color: #2b542c; border-radius: 1px; }
+        .header-title { font-size: 20px; font-weight: 500; color: #2b542c; letter-spacing: -0.3px; }
+        .banner-strip { width: 100%; height: 24px; background: linear-gradient(90deg, #b8b8b8 0%, #7a7a7a 35%, #d6d6d6 60%, #4a4a4a 85%, #9e9e9e 100%); opacity: 0.75; }
 
-        body {
-            background-color: #ffffff;
-            color: #333333;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+        /* Corpo e Cards */
+        main { max-width: 1120px; width: 100%; margin: 48px auto 70px; padding: 0 20px; flex: 1; }
+        .section-title { margin-bottom: 22px; }
+        .section-title .sub { display: block; font-size: 16px; font-weight: 700; color: #333; }
+        .section-title .main-text { display: block; font-size: 24px; font-weight: 800; color: #c81010; }
+        .cards-wrapper { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+        .cards-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; width: 100%; }
+        .card { width: 205px; height: 162px; background: #fff; border: 1px solid #e6e6e6; border-radius: 2px; box-shadow: 0 3px 6px rgba(0,0,0,0.12); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 15px; text-decoration: none; color: #333; transition: 0.15s; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 5px 12px rgba(0,0,0,0.16); }
+        .card.highlight { background-color: #d9f3d9; border-color: #c6e8c6; }
+        .card svg { width: 38px; height: 38px; margin-bottom: 16px; fill: #265c29; }
+        .card-label { font-size: 13px; font-weight: 500; color: #2b2b2b; line-height: 1.3; }
 
-        /* ================= CABEÇALHO ================= */
-        header {
-            width: 100%;
-            height: 60px;
-            background-color: #ffffff;
-            display: flex;
-            align-items: center;
-            padding: 0 11%;
-            border-bottom: 1px solid #e0e0e0;
-        }
+        /* Rodapé */
+        footer { width: 100%; background-color: #e6e6e6; padding: 32px 20px 45px; border-top: 1px solid #dcdcdc; }
+        .footer-container { max-width: 1120px; margin: 0 auto; }
+        .footer-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+        .sc-logo-top { font-size: 36px; font-weight: 900; letter-spacing: -1.8px; }
+        .red { color: #c81010; }
+        .green { color: #265c29; }
+        .social-icons { display: flex; gap: 8px; margin-right: 190px; }
+        .social-link { width: 30px; height: 30px; background: #8ea93b; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: #fff; font-weight: bold; font-size: 13px; }
+        .footer-grid { display: grid; grid-template-columns: 1.05fr 1.15fr 1.85fr 1.65fr 1.55fr; gap: 18px; align-items: start; }
+        .footer-col h3 { font-size: 12px; font-weight: 700; color: #222; text-transform: uppercase; margin-bottom: 14px; }
+        .detran-brand { display: flex; align-items: center; gap: 6px; margin-bottom: 18px; font-size: 14px; font-weight: 900; color: #111; }
+        .store-buttons { display: flex; flex-direction: column; gap: 8px; }
+        .store-btn { display: inline-flex; align-items: center; gap: 8px; background: #363636; color: #fff; text-decoration: none; font-size: 10px; font-weight: 600; padding: 7px 12px; border-radius: 4px; width: 112px; }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 6px; }
+        .footer-links a { text-decoration: none; color: #333; font-size: 12px; }
+        .footer-links a:hover { text-decoration: underline; }
+        .info-block { margin-bottom: 14px; font-size: 12px; line-height: 1.35; }
+        .info-block strong { display: block; color: #222; }
+        .address-bottom-row { display: flex; align-items: flex-end; justify-content: space-between; }
+        .padrao-logo small { display: block; font-size: 7px; color: #999; font-weight: 700; }
+        .padrao-logo .logo-txt { font-size: 20px; font-weight: 900; letter-spacing: -1.2px; }
+        .footer-bottom { margin-top: 20px; font-size: 11.5px; }
+        .privacy-link { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: #333; font-size: 12px; margin-bottom: 12px; }
+        .accessibility-float { position: fixed; right: 8px; bottom: 185px; width: 38px; height: 38px; background: #2a7de1; border-radius: 6px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.25); cursor: pointer; color: #fff; font-size: 20px; }
 
-        .menu-icon {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            width: 20px;
-            height: 15px;
-            margin-right: 18px;
-            cursor: pointer;
-        }
+        @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } .social-icons { margin-right: 0; } }
+        @media (max-width: 600px) { .footer-grid { grid-template-columns: 1fr; } .card { width: 46%; } }
+    </style>
+</head>
+<body>
 
-        .menu-icon span {
-            display: block;
-            height: 3px;
-            width: 100%;
-            background-color: #2b542c;
-            border-radius: 1px;
-        }
+<header>
+    <div class="menu-icon"><span></span><span></span><span></span></div>
+    <h1 class="header-title">Departamento Estadual de Trânsito de Santa Catarina</h1>
+</header>
+<div class="banner-strip"></div>
 
-        .header-title {
-            font-size: 20px;
-            font-weight: 500;
-            color: #2b542c;
-            letter-spacing: -0.3px;
-        }
+<main>
+    <div class="section-title">
+        <span class="sub">Serviços mais</span>
+        <span class="main-text">ACESSADOS</span>
+    </div>
 
-        .banner-strip {
-            width: 100%;
-            height: 24px;
-            background: linear-gradient(90deg, #b8b8b8 0%, #7a7a7a 35%, #d6d6d6 60%, #4a4a4a 85%, #9e9e9e 100%);
-            opacity: 0.75;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
-        }
+    <div class="cards-wrapper">
+        <div class="cards-row">
+            <a href="#" class="card">
+                <svg viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.29l1.08 3.11H5.77L6.85 7zM19 17H5v-5h14v5z"/><circle cx="7.5" cy="14.5" r="1.5"/><circle cx="16.5" cy="14.5" r="1.5"/></svg>
+                <span class="card-label">Consulta Veículos</span>
+            </a>
+            <a href="#" class="card">
+                <svg viewBox="0 0 24 24"><path d="M20 6h-4V4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v2H4c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zM10 4h4v2h-4V4zm10 15H4V8h16v11z"/><circle cx="8.5" cy="12" r="1.8"/><path d="M5.5 16.5c0-1.3 2-2 3-2s3 .7 3 2v.5h-6v-.5z"/><rect x="13" y="11" width="5" height="1.2"/><rect x="13" y="13.5" width="5" height="1.2"/><rect x="13" y="16" width="3.5" height="1.2"/></svg>
+                <span class="card-label">Consulta CNH</span>
+            </a>
+            <a href="#" class="card">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h7v-2H6V4h7v5h5v4h2V8l-6-6z"/><circle cx="8.5" cy="12.5" r="1"/><circle cx="8.5" cy="15" r="1"/><circle cx="8.5" cy="17.5" r="1"/><rect x="10.5" y="12" width="4.5" height="1"/><rect x="10.5" y="14.5" width="4.5" height="1"/><rect x="10.5" y="17" width="3" height="1"/><text x="15.5" y="21" font-size="9" font-weight="bold" fill="#265c29">$</text></svg>
+                <span class="card-label">Consultar Infrações</span>
+            </a>
+            <a href="#" class="card">
+                <svg viewBox="0 0 24 24"><path d="M9.5 4h-2L5 11.5C4.4 12.3 4 13.3 4 14.5 4 17 6 19 8.5 19c2.2 0 4-1.6 4.4-3.7h.2c.4 2.1 2.2 3.7 4.4 3.7 2.5 0 4.5-2 4.5-4.5 0-1.2-.4-2.2-1-3L18.5 4h-2l-1.5 5h-4L9.5 4zm-1 13C7.1 17 6 15.9 6 14.5S7.1 12 8.5 12s2.5 1.1 2.5 2.5S9.9 17 8.5 17zm9 0c-1.4 0-2.5-1.1-2.5-2.5s1.1-2.5 2.5-2.5 2.5 1.1 2.5 2.5-1.1 2.5-2.5 2.5z"/></svg>
+                <span class="card-label">Estatísticas</span>
+            </a>
+            <a href="#" class="card highlight">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><circle cx="6.5" cy="9.5" r="2.2"/><circle cx="17.5" cy="9.5" r="2.2"/><path d="M12 12.5c-2.7 0-5.5 1.3-5.5 3.5v2h11v-2c0-2.2-2.8-3.5-5.5-3.5z"/><path d="M5.5 13.5c-1.8 0-3.5.9-3.5 2.3V17h3.2v-1c0-1 .5-1.8 1.3-2.4-.3-.1-.7-.1-1-.1z"/><path d="M18.5 13.5c-.3 0-.7 0-1 .1.8.6 1.3 1.4 1.3 2.4v1H22v-1.2c0-1.4-1.7-2.3-3.5-2.3z"/></svg>
+                <span class="card-label">Detran Digital</span>
+            </a>
+        </div>
 
-        /* ================= SEÇÃO PRINCIPAL (8 CARDS) ================= */
-        main {
-            max-width: 1120px;
-            width: 100%;
-            margin: 48px auto 70px;
-            padding: 0 20px;
-            flex: 1;
-        }
+        <div class="cards-row">
+            <a href="#" class="card">
+                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 6h16v3H4V6zm6 11H5v-6h5v6zm9 0h-7v-1.5h7V17zm0-3h-7v-1.5h7V14z"/></svg>
+                <span class="card-label">Emprego na Pista</span>
+            </a>
+            <a href="#" class="card">
+                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM8.5 8.5c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm4 7.5h-8v-1c0-1.3 2.7-2 4-2s4 .7 4 2v1zm6.5-1h-5v-1.3h5V15zm0-2.5h-5v-1.3h5v1.3zm0-2.5h-5V8.7h5V10z"/></svg>
+                <span class="card-label">CFC Credenciado</span>
+            </a>
+            <a href="#" class="card">
+                <svg viewBox="0 0 24 24"><circle cx="7" cy="6.5" r="2"/><circle cx="12" cy="6.5" r="2"/><circle cx="17" cy="6.5" r="2"/><path d="M17 10c-.8 0-1.5.2-2.1.6-.8-.4-1.8-.6-2.9-.6s-2.1.2-2.9.6C8.5 10.2 7.8 10 7 10c-2.2 0-4 1.3-4 3v3h2v4h4v-4h1v4h4v-4h1v4h4v-4h2v-3c0-1.7-1.8-3-4-3z"/></svg>
+                <span class="card-label">Instrutores<br>Autônomos<br>Credenciados</span>
+            </a>
+        </div>
+    </div>
+</main>
+<div class="accessibility-float" title="Acessibilidade em Libras">🤟</div>
 
-        .section-title {
-            margin-bottom: 22px;
-        }
+<footer>
+    <div class="footer-container">
+        <div class="footer-top">
+            <div class="sc-logo-top"><span class="red">sc.</span><span class="green">gov.br</span></div>
+            <div class="social-icons">
+                <a href="#" class="social-link" title="Instagram">IG</a>
+                <a href="#" class="social-link" title="Facebook">f</a>
+                <a href="#" class="social-link" title="Twitter">𝕏</a>
+                <a href="#" class="social-link" title="YouTube">▶</a>
+            </div>
+        </div>
 
-        .section-title .sub {
-            display: block;
-            font-size: 16px;
-            font-weight: 700;
-            color: #333333;
-            line-height: 1.1;
-        }
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="detran-brand">
+                    <span style="color:#c81010;">▶</span><span style="color:#265c29; margin-left:-4px;">▶</span>
+                    <span>DETRANSC</span>
+                </div>
+                <div class="store-buttons">
+                    <a href="#" class="store-btn">▶ Play Store</a>
+                    <a href="#" class="store-btn"> App Store</a>
+                </div>
+            </div>
 
-        .section-title .main-text {
-            display: block;
-            font-size: 24px;
-            font-weight: 800;
-            color: #c81010;
-            letter-spacing: 0.5px;
-            line-height: 1.1;
-        }
+            <div class="footer-col">
+                <h3>LINKS EXTERNOS</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Agência de Notícias</a></li>
+                    <li><a href="#">Portal de Serviços</a></li>
+                    <li><a href="#">Diário Oficial</a></li>
+                    <li><a href="#">Acesso à Informação</a></li>
+                    <li><a href="#">Órgãos do Governo</a></li>
+                    <li><a href="#">Conheça SC</a></li>
+                </ul>
+            </div>
 
-        .cards-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 14px;
-        }
+            <div class="footer-col">
+                <h3>FALE CONOSCO</h3>
+                <div class="info-block">WhatsApp:<strong>(48) 3664-1800</strong></div>
+                <div class="info-block">E-mail:<strong>centraldeinformacoes@detran.sc.gov.br</strong></div>
+            </div>
 
-        .cards-row {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 14px;
-            width: 100%;
-        }
+            <div class="footer-col">
+                <h3>ENDEREÇO</h3>
+                <div class="info-block">Endereço:<strong>Av. Almirante Tamandaré - 480</strong></div>
+                <div class="info-block">Bairro:<strong>Coqueiros, Florianópolis SC</strong></div>
+                <div class="address-bottom-row">
+                    <div class="info-block" style="margin-bottom:0;">CEP:<strong>88.080-160</strong></div>
+                    <div class="padrao-logo">
+                        <small>PADRÃO</small>
+                        <div class="logo-txt"><span class="red">sc.</span><span class="green">gov.br</span></div>
+                    </div>
+                </div>
+            </div>
 
-        .card {
-            width: 205px;
-            height: 162px;
-            background-color: #ffffff;
-            border: 1px solid #e6e6e6;
-            border-radius: 2px;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 15px;
-            text-decoration: none;
-            color: #333333;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-        }
+            <div class="footer-col" style="text-align:center;">
+                <h3>LOCALIZAÇÃO</h3>
+                <svg width="215" height="125" viewBox="0 0 230 135">
+                    <path d="M12,34 L45,27 L68,20 L95,24 L115,17 L142,18 L168,16 L185,24 L188,45 L178,68 L170,88 L156,112 L138,122 L126,115 L133,94 L120,80 L100,74 L76,68 L50,60 L26,54 L8,46 Z" fill="#6e6e6e"/>
+                    <path d="M10,27 L43,20 L66,13 L93,17 L113,10 L140,11 L166,9 L183,17 L186,38 L176,61 L168,81 L154,105 L136,115 L124,108 L131,87 L118,73 L98,67 L74,61 L48,53 L24,47 L6,39 Z" fill="#f7f7f7" stroke="#cccccc" stroke-width="1"/>
+                    <text x="122" y="65" font-size="8.5" font-weight="800" fill="#1a5fb4" transform="rotate(-12 122,65)">DETRAN/SC</text>
+                    <g transform="translate(175, 48)">
+                        <path d="M8,0 C3.6,0 0,3.6 0,8 C0,14.5 8,23 8,23 C8,23 16,14.5 16,8 C16,3.6 12.4,0 8,0 Z" fill="#c81010"/>
+                        <circle cx="8" cy="8" r="3.2" fill="#ffffff"/>
+                    </g>
+                </svg>
+            </div>
+        </div>
 
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.16);
-        }
+        <div class="footer-bottom">
+            <a href="#" class="privacy-link">🔒 Política de privacidade</a>
+            <div>Copyright © 2025 Todos os Direitos Reservados SC - Governo de Santa Catarina | <strong>Desenvolvimento - DITI/DETRAN</strong></div>
+        </div>
+    </div>
+</footer>
 
-        .card.highlight {
-            background-color: #d9f3d9;
-            border-color: #c6e8c6;
-        }
-
-        .card svg {
-            width: 38px;
-            height: 38px;
-            margin-bottom: 16px;
-            fill: #265c29;
-        }
-
-        .card-label {
-            font-size: 13px;
-            font-weight: 500;
-            color: #2b2b2b;
-            line-height: 1.3;
-        }
-
-        /* ================= RODAPÉ INSTITUCIONAL ================= */
-        footer {
-            width: 100%;
-            background-color: #e6e6e6;
-            padding: 32px 20px 45px;
-            border-top: 1px solid #dcdcdc;
-            position: relative;
-        }
-
-        .footer-container {
-            max-width: 1120px;
-            margin: 0 auto;
-        }
-
-        .footer-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 22px;
-        }
-
-        .sc-logo-top {
-            font-size: 36px;
-            font-weight: 900;
-            letter-spacing: -1.8px;
-            line-height: 1;
-        }
-
-        .sc-logo-top .red {
-            color: #c81010;
-        }
-
-        .sc-logo-top .green {
-            color: #265c29;
-        }
-
-        .social-icons {
-            display: flex;
-            gap: 8px;
-            margin-right: 190px;
-        }
-
-        .social-link {
-            width: 30px;
-            height: 30px;
-            background-color: #8ea93b;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: opacity 0.2s;
-        }
-
-        .social-link:hover {
-            opacity: 0.85;
-        }
-
-        .social-link svg {
-            width: 15px;
-            height: 15px;
-            fill: #ffffff;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.05fr 1.15fr 1.85fr 1.65fr 1.55fr;
-            gap: 18px;
-            align-items: start;
-        }
-
-        .footer-col h3 {
-            font-size: 12px;
-            font-weight: 700;
-            color: #222222;
-            text-transform: uppercase;
-            margin-bottom: 14px;
-            letter-spacing: 0.2px;
-        }
-
-        .detran-brand {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-bottom: 18px;
-        }
-
-        .detran-brand-text {
-            font-size: 14px;
-            font-weight: 900;
-            color: #111111;
-            letter-spacing: -0.3px;
-        }
-
-        .store-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .store-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background-color: #363636;
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 10px;
-            font-weight: 600;
-            padding: 7px 12px;
-            border-radius: 4px;
-            width: 112px;
-            transition: background-color 0.2s;
-        }
-
-        .store-btn:hover {
-            background-color: #1f1f1f;
-        }
-
-        .store-btn svg {
-            width: 12px;
-            height: 12px;
-            fill: #ffffff;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 6px;
-        }
-
-        .footer-links a {
-            text-decoration: none;
-            color: #333333;
-            font-size: 12px;
-            font-weight: 400;
-        }
-
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-
-        .info-block {
-            margin-bottom: 14px;
-            font-size: 12px;
-            line-height: 1.35;
-            color: #333333;
-        }
-
-        .info-block strong {
-            display: block;
-            font-weight: 700;
-            color: #222222;
-        }
-
-        .address-bottom-row {
-            display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 8px;
-        }
-
-        .padrao-logo {
-            display: flex;
-            flex-direction: column;
-            line-height: 1;
-        }
-
-        .padrao-logo small {
-            font-size: 7px;
-            color: #999999;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            margin-bottom: 1px;
-        }
-
-        .padrao-logo .logo-txt {
-            font-size: 20px;
-            font-weight: 900;
-            letter-spacing: -1.2px;
-            display: flex;
-            align-items: center;
-        }
-
-        .leaf-badge {
-            display: inline-block;
-            width: 10px;
-            height: 12px;
-            margin-left: 2px;
-        }
-
-        .location-col {
-            text-align: center;
-        }
-
-        .map-wrapper {
-            margin-top: -6px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .footer-bottom {
-            margin-top: 20px;
-            font-size: 11.5px;
-            color: #333333;
-        }
-
-        .privacy-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            text-decoration: none;
-            color: #333333;
-            font-size: 12px;
-            margin-bottom: 12px;
-        }
-
-        .privacy-link:hover {
-            text-decoration: underline;
-        }
-
-        .copyright {
-            font-size: 11.5px;
-            color: #333333;
-        }
-
-        .copyright strong {
-            font-weight: 700;
-        }
-
-        .accessibility-float {
-            position: fixed;
-            right: 8px;
-            bottom: 185px;
-            width: 38px;
-            height: 38px;
-            background-color: #2a7de1;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-            cursor: pointer;
-            z-index: 999;
-        }
-
-        .accessibility-float svg {
-            width: 22px;
-            height: 22px;
-            fill: #ffffff;
-        }
-
+</body>
+</html>
