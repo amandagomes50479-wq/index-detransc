@@ -10,7 +10,6 @@
         .topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         h2 { color: #2b542c; font-size: 20px; margin: 0; }
         button { background: #2b542c; color: #fff; border: none; padding: 8px 14px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-        button:hover { background: #1e3d1f; }
         table { width: 100%; border-collapse: collapse; }
         th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; font-size: 14px; }
         th { background: #e9f5e9; color: #2b542c; }
@@ -37,45 +36,42 @@
     </div>
 
     <script>
-    // IMPORTANTE: mantenha exatamente o mesmo nome colocado no index.html
-    const PROJETO = "detransc_contador_oficial_2026";
+    // COLE AQUI A MESMA URL DO GOOGLE APPS SCRIPT
+    const URL_PLANILHA = "COLE_SUA_URL_DO_GOOGLE_AQUI";
 
     const listaBotoes = [
-        { nome: "Consulta Veículos", chave: "consulta_veiculos" },
-        { nome: "Consulta CNH", chave: "consulta_cnh" },
-        { nome: "Consultar Infrações", chave: "consultar_infracoes" },
-        { nome: "Estatísticas", chave: "estatisticas" },
-        { nome: "Detran Digital", chave: "detran_digital" },
-        { nome: "Emprego na Pista", chave: "emprego_na_pista" },
-        { nome: "CFC Credenciado", chave: "cfc_credenciado" },
-        { nome: "Instrutores Autônomos Credenciados", chave: "instrutores_autonomos_credenciados" }
+        "Consulta Veículos",
+        "Consulta CNH",
+        "Consultar Infrações",
+        "Estatísticas",
+        "Detran Digital",
+        "Emprego na Pista",
+        "CFC Credenciado",
+        "Instrutores Autônomos Credenciados"
     ];
 
     async function carregarResultados() {
         const tbody = document.getElementById("tabela-cliques");
         tbody.innerHTML = "<tr><td colspan='2'>Buscando dados...</td></tr>";
 
-        let htmlLinhas = "";
-        let somaTotal = 0;
+        try {
+            const resp = await fetch(URL_PLANILHA);
+            const contagem = await resp.json();
 
-        for (const item of listaBotoes) {
-            try {
-                const resp = await fetch(`https://counterapi.dev{PROJETO}/${item.chave}/`);
-                if (resp.ok) {
-                    const dados = await resp.json();
-                    const total = dados.count || 0;
-                    somaTotal += total;
-                    htmlLinhas += `<tr><td>${item.nome}</td><td><strong>${total}</strong></td></tr>`;
-                } else {
-                    htmlLinhas += `<tr><td>${item.nome}</td><td><strong>0</strong></td></tr>`;
-                }
-            } catch (e) {
-                htmlLinhas += `<tr><td>${item.nome}</td><td><strong>0</strong></td></tr>`;
+            let htmlLinhas = "";
+            let somaTotal = 0;
+
+            for (const nome of listaBotoes) {
+                const total = contagem[nome] || 0;
+                somaTotal += total;
+                htmlLinhas += `<tr><td>${nome}</td><td><strong>${total}</strong></td></tr>`;
             }
-        }
 
-        htmlLinhas += `<tr class="total-row"><td>TOTAL GERAL</td><td>${somaTotal}</td></tr>`;
-        tbody.innerHTML = htmlLinhas;
+            htmlLinhas += `<tr class="total-row"><td>TOTAL GERAL</td><td>${somaTotal}</td></tr>`;
+            tbody.innerHTML = htmlLinhas;
+        } catch (e) {
+            tbody.innerHTML = "<tr><td colspan='2'>Erro ao carregar. Verifique se a URL foi colada corretamente.</td></tr>";
+        }
     }
 
     carregarResultados();
