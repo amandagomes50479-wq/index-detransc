@@ -5,22 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relatório de Cliques</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 40px; }
-        .painel { max-width: 520px; margin: auto; background: #fff; padding: 25px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-        h2 { color: #2b542c; margin-bottom: 20px; }
+        body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 40px 15px; }
+        .painel { max-width: 540px; margin: auto; background: #fff; padding: 25px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        h2 { color: #2b542c; font-size: 20px; margin: 0; }
+        button { background: #2b542c; color: #fff; border: none; padding: 8px 14px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #1e3d1f; }
         table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; }
+        th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; font-size: 14px; }
         th { background: #e9f5e9; color: #2b542c; }
+        tr.total-row td { background: #f9f9f9; font-weight: bold; border-top: 2px solid #2b542c; }
     </style>
 </head>
 <body>
     <div class="painel">
-        <h2>Contagem de Cliques por Botão</h2>
+        <div class="topo">
+            <h2>Contagem de Cliques</h2>
+            <button onclick="carregarResultados()">Atualizar</button>
+        </div>
         <table>
             <thead>
                 <tr>
                     <th>Botão</th>
-                    <th>Total de Cliques</th>
+                    <th>Cliques</th>
                 </tr>
             </thead>
             <tbody id="tabela-cliques">
@@ -31,7 +38,7 @@
 
     <script>
     // IMPORTANTE: use exatamente o mesmo nome colocado no index.html
-    const NOME_PROJETO = "detransc_meu_site_2026";
+    const NAMESPACE = "detransc_painel_unico_99";
 
     const listaBotoes = [
         { nome: "Consulta Veículos", chave: "consulta_veiculos" },
@@ -46,18 +53,29 @@
 
     async function carregarResultados() {
         const tbody = document.getElementById("tabela-cliques");
-        tbody.innerHTML = "";
+        tbody.innerHTML = "<tr><td colspan='2'>Buscando dados...</td></tr>";
+
+        let htmlLinhas = "";
+        let somaTotal = 0;
 
         for (const item of listaBotoes) {
             try {
-                const resp = await fetch(`https://counterapi.dev{NOME_PROJETO}/${item.chave}`);
-                const dados = await resp.json();
-                const total = dados.count || 0;
-                tbody.innerHTML += `<tr><td>${item.nome}</td><td><strong>${total}</strong></td></tr>`;
+                const resp = await fetch(`https://jasoncameron.dev{NAMESPACE}/${item.chave}`);
+                if (resp.ok) {
+                    const dados = await resp.json();
+                    const total = dados.value || 0;
+                    somaTotal += total;
+                    htmlLinhas += `<tr><td>${item.nome}</td><td><strong>${total}</strong></td></tr>`;
+                } else {
+                    htmlLinhas += `<tr><td>${item.nome}</td><td><strong>0</strong></td></tr>`;
+                }
             } catch (e) {
-                tbody.innerHTML += `<tr><td>${item.nome}</td><td><strong>0</strong></td></tr>`;
+                htmlLinhas += `<tr><td>${item.nome}</td><td><strong>0</strong></td></tr>`;
             }
         }
+
+        htmlLinhas += `<tr class="total-row"><td>TOTAL GERAL</td><td>${somaTotal}</td></tr>`;
+        tbody.innerHTML = htmlLinhas;
     }
 
     carregarResultados();
