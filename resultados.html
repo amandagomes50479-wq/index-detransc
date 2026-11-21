@@ -36,49 +36,32 @@
         </table>
     </div>
 
-    <script>
-    // IMPORTANTE: use exatamente o mesmo nome colocado no index.html
+<script>
+document.addEventListener("DOMContentLoaded", function() {
     const NAMESPACE = "detransc_painel_unico_99";
+    const DESTINO_PADRAO = "https://www.detran.sc.gov.br/";
+    const botoes = document.querySelectorAll(".card");
 
-    const listaBotoes = [
-        { nome: "Consulta Veículos", chave: "consulta_veiculos" },
-        { nome: "Consulta CNH", chave: "consulta_cnh" },
-        { nome: "Consultar Infrações", chave: "consultar_infracoes" },
-        { nome: "Estatísticas", chave: "estatisticas" },
-        { nome: "Detran Digital", chave: "detran_digital" },
-        { nome: "Emprego na Pista", chave: "emprego_na_pista" },
-        { nome: "CFC Credenciado", chave: "cfc_credenciado" },
-        { nome: "Instrutores Autônomos Credenciados", chave: "instrutores_autonomos_credenciados" }
-    ];
+    botoes.forEach(function(botao) {
+        // Já atualiza o href visual do botão para o site oficial
+        botao.setAttribute("href", DESTINO_PADRAO);
 
-    async function carregarResultados() {
-        const tbody = document.getElementById("tabela-cliques");
-        tbody.innerHTML = "<tr><td colspan='2'>Buscando dados...</td></tr>";
+        botao.addEventListener("click", function(e) {
+            e.preventDefault(); // Aguarda o registro do clique antes de sair da página
 
-        let htmlLinhas = "";
-        let somaTotal = 0;
+            const texto = this.querySelector(".card-label").innerText;
+            const chave = texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                               .toLowerCase().replace(/[^a-z0-9]/g, "_");
 
-        for (const item of listaBotoes) {
-            try {
-                const resp = await fetch(`https://jasoncameron.dev{NAMESPACE}/${item.chave}`);
-                if (resp.ok) {
-                    const dados = await resp.json();
-                    const total = dados.value || 0;
-                    somaTotal += total;
-                    htmlLinhas += `<tr><td>${item.nome}</td><td><strong>${total}</strong></td></tr>`;
-                } else {
-                    htmlLinhas += `<tr><td>${item.nome}</td><td><strong>0</strong></td></tr>`;
-                }
-            } catch (e) {
-                htmlLinhas += `<tr><td>${item.nome}</td><td><strong>0</strong></td></tr>`;
-            }
-        }
+            // Registra +1 clique e imediatamente redireciona para https://www.detran.sc.gov.br/
+            fetch(`https://jasoncameron.dev{NAMESPACE}/${chave}`)
+                .finally(function() {
+                    window.location.href = DESTINO_PADRAO;
+                });
+        });
+    });
+});
+</script>
 
-        htmlLinhas += `<tr class="total-row"><td>TOTAL GERAL</td><td>${somaTotal}</td></tr>`;
-        tbody.innerHTML = htmlLinhas;
-    }
-
-    carregarResultados();
-    </script>
 </body>
 </html>
