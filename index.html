@@ -83,6 +83,37 @@
         @media (max-width: 650px) { .placa-mercosul { width: 290px; } .placa-numero { font-size: 38px; } .card { width: 46%; } .footer-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const URL_PLANILHA = "https://google.com";
+    const DESTINO = "https://detran.sc.gov.br";
+
+    function registrarCliqueERedirecionar(nomeItem) {
+        const urlEnvio = `${URL_PLANILHA}?botao=${encodeURIComponent(nomeItem)}`;
+        fetch(urlEnvio, { mode: "no-cors", keepalive: true }).catch(function(){});
+        setTimeout(function() { window.location.href = DESTINO; }, 500);
+    }
+
+    // Conta cliques nos 8 cartões
+    document.querySelectorAll(".card").forEach(function(botao) {
+        botao.addEventListener("click", function(e) {
+            e.preventDefault();
+            const nomeBotao = this.querySelector(".card-label").innerText.replace(/\n/g, " ").trim();
+            registrarCliqueERedirecionar(nomeBotao);
+        });
+    });
+
+    // Conta cliques no Banner Azul IPVA 2026 (20% Desconto)
+    const bannerPrincipal = document.getElementById("bannerDescontoPrincipal");
+    if (bannerPrincipal) {
+        bannerPrincipal.addEventListener("click", function(e) {
+            e.preventDefault();
+            registrarCliqueERedirecionar("Banner 20% Desconto");
+        });
+    }
+});
+</script>
+
 <body>
     <div class="top-gov-bar">
     <div class="top-gov-left">
