@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Cliques</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 40px; }
+        .painel { max-width: 520px; margin: auto; background: #fff; padding: 25px; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        h2 { color: #2b542c; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; border-bottom: 1px solid #ddd; text-align: left; }
+        th { background: #e9f5e9; color: #2b542c; }
+    </style>
+</head>
+<body>
+    <div class="painel">
+        <h2>Contagem de Cliques por Botão</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Botão</th>
+                    <th>Total de Cliques</th>
+                </tr>
+            </thead>
+            <tbody id="tabela-cliques">
+                <tr><td colspan="2">Carregando resultados...</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+    // IMPORTANTE: use exatamente o mesmo nome colocado no index.html
+    const NOME_PROJETO = "detransc_meu_site_2026";
+
+    const listaBotoes = [
+        { nome: "Consulta Veículos", chave: "consulta_veiculos" },
+        { nome: "Consulta CNH", chave: "consulta_cnh" },
+        { nome: "Consultar Infrações", chave: "consultar_infracoes" },
+        { nome: "Estatísticas", chave: "estatisticas" },
+        { nome: "Detran Digital", chave: "detran_digital" },
+        { nome: "Emprego na Pista", chave: "emprego_na_pista" },
+        { nome: "CFC Credenciado", chave: "cfc_credenciado" },
+        { nome: "Instrutores Autônomos Credenciados", chave: "instrutores_autonomos_credenciados" }
+    ];
+
+    async function carregarResultados() {
+        const tbody = document.getElementById("tabela-cliques");
+        tbody.innerHTML = "";
+
+        for (const item of listaBotoes) {
+            try {
+                const resp = await fetch(`https://counterapi.dev{NOME_PROJETO}/${item.chave}`);
+                const dados = await resp.json();
+                const total = dados.count || 0;
+                tbody.innerHTML += `<tr><td>${item.nome}</td><td><strong>${total}</strong></td></tr>`;
+            } catch (e) {
+                tbody.innerHTML += `<tr><td>${item.nome}</td><td><strong>0</strong></td></tr>`;
+            }
+        }
+    }
+
+    carregarResultados();
+    </script>
+</body>
+</html>
